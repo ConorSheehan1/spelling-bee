@@ -1,0 +1,31 @@
+{
+  "name": "beach-litriochta",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "yarn lint:prettier",
+    "lint:prettier": "prettier --check .",
+    "lintfix": "prettier --write --list-different ."
+  },
+  "prettier": {
+    "bracketSameLine": true
+  },
+  "dependencies": {
+    "@vueuse/core": "^8.9.2",
+    "element-plus": "^2.2.9",
+    "pinia": "^2.0.15",
+    "sass": "^1.53.0",
+    "vue": "^3.2.25",
+    "vue-i18n": "^9.1.10"
+  },
+  "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^5.0.0",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.7.1",
+    "vite": "^2.9.9"
+  }
+}

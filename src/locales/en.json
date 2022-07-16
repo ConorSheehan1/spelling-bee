@@ -1,0 +1,40 @@
+{
+  "language": "language",
+  "Yesterdays Answers": "Yesterdays Answers",
+  "Help": "Help",
+  "foundWords": "You have found 0 words | You have found 1 word | You have found {n} words",
+  "Your words": "Your words",
+  "How to play": "How to play",
+  "helpCreateWords": "Create words using letters from the hive",
+  "helpWordRule1": "Words must contain at least 4 letters",
+  "helpWordRule2": "Words must include the center letter",
+  "helpWordRule3": "Letters can be used more than once",
+  "helpScorePoints": "Score points to increase your rating",
+  "helpPointsRule1": "4-letter words are worth 1 point each",
+  "helpPointsRule2": "Longer words earn 1 point per letter",
+  "helpPointsRule3A": "Each puzzle includes at least one “pangram” which uses every letter",
+  "helpPointsRule3B": "These are worth 7 extra points",
+  "Delete": "Delete",
+  "Enter": "Enter",
+  "Ranking": "Ranking",
+  "RankMSG": "Ranks are based on a percentage of possible points in a puzzle. The minimum scores to reach each rank for today’s are",
+  "rank": {
+    "0": "Beginner",
+    "1": "Good Start",
+    "2": "Moving Up",
+    "3": "Good",
+    "4": "Solid",
+    "5": "Nice",
+    "6": "Great",
+    "7": "Amazing",
+    "8": "Genius"
+  },
+  "points": {
+    "good": "good",
+    "nice": "nice",
+    "great": "great",
+    "excellent": "excellent",
+    "amazing": "amazing",
+    "awesome": "awesome"
+  }
+}
