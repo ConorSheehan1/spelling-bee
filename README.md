@@ -1,5 +1,9 @@
 # Beach Litríochta
 
+https://beach-litriochta.netlify.app/
+
+An Irish version of the New York Times Spelling Bee Puzzle.
+
 ## Dev
 
 ```shell
@@ -7,14 +11,14 @@
 yarn install
 
 # dev server
-yarn run dev
+yarn dev
 # production build (fails to open locally with file:// protocol due to cors)
-yarn run build
+yarn build
 
 # lint check
-yarn run lint
+yarn lint
 # lint autofix
-yarn run lintfix
+yarn lintfix
 ```
 
 ## Create derivative files
