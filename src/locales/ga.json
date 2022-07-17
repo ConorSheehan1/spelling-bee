@@ -17,17 +17,17 @@
   "Delete": "Siar",
   "Enter": "Tomhas",
   "Ranking": "Rangú",
-  "RankMSG": "Tá na ranganna bunaithe ar céadtadán na bpointí gur féidir a fháil sa chluiche. Is iad seo a leanas na scóir is ísle atá ag teastáil chun gach céim a bhaint amach inniú",
+  "RankMSG": "Tá na ranganna bunaithe ar chéadtadán na bpointí gur féidir a fháil sa chluiche. Is iad seo a leanas na scóir is ísle atá ag teastáil chun gach céim a bhaint amach inniú",
   "rank": {
-    "0": "Tosaitheor",
+    "0": "Tosaitheoir",
     "1": "Tús Maith",
     "2": "Ag Bogadh Suas",
     "3": "Deas",
-    "4": "Maith",
+    "4": "Ar Fheabhas",
     "5": "An-Mhaith",
-    "6": "Sár-Mhaith",
-    "7": "Íontach",
-    "8": "Dochreidte"
+    "6": "Íontach",
+    "7": "Dochreidte",
+    "8": "Laoch"
   },
   "points": {
     "good": "maith",

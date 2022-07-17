@@ -25,7 +25,9 @@ const submitGuess = ({ $t, guess }) => {
 <template>
   <div class="sb-controls" :style="`z-index: ${ZIndex}`">
     <div class="user-guess">
-      <strong>{{ userGuess }}</strong>
+      <strong v-for="(letter, index) in userGuess" :class="{'middle-letter': letter === store.middleLetter}" :key="`user-guess-${index}`">
+        {{ letter }}
+      </strong>
     </div>
 
     <div class="hive">
@@ -84,6 +86,9 @@ const submitGuess = ({ $t, guess }) => {
 
 .user-guess {
   min-height: 2em;
+  .middle-letter {
+    color: $bl-green;
+  }
 }
 .sb-controls {
   /* put entire hive behind correctGuesses when table is expanded */
