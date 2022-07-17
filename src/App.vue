@@ -28,6 +28,9 @@ const onToggleDarkMode = () => {
 
 onMounted(onToggleDarkMode);
 
+// _ctx.setTimeout is not a function. forward on to vue instance instead.
+const wait2Seconds = func => setTimeout(func, 2000);
+
 // current date yyyy-mm-dd
 const dateString = new Date().toISOString().split("T")[0];
 // current date as int yyyymmdd
@@ -93,7 +96,7 @@ store.startGame({
     <Progress />
     <CorrectGuesses
       @open="zindex = -1"
-      @close="setTimeout(() => (zindex = 0), 2000)" />
+      @close="wait2Seconds(() => (zindex = 0))" />
     <Hive :ZIndex="zindex" />
   </div>
 </template>

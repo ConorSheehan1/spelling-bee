@@ -34,17 +34,22 @@ export const useMainStore = defineStore({
         return acc + this.getPoints({ word });
       }, 0);
     },
+    getMinScore() {
+      // 19 4-letter words @ 1 point each, 1 pangram @ min 14 points.
+      const minNumWords = 20;
+      return (minNumWords - 1) + (14); // 33
+    },
     getScoreLevels() {
       return [
         0,
         5,
+        Math.floor(this.getMaxScore * 0.1),
         Math.floor(this.getMaxScore * 0.2),
         Math.floor(this.getMaxScore * 0.3),
         Math.floor(this.getMaxScore * 0.4),
         Math.floor(this.getMaxScore * 0.5),
         Math.floor(this.getMaxScore * 0.6),
         Math.floor(this.getMaxScore * 0.7),
-        Math.floor(this.getMaxScore * 0.8),
       ].sort((a, b) => a - b);
     },
     getProgressIndex() {
