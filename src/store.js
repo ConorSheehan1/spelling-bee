@@ -76,6 +76,9 @@ export const useMainStore = defineStore({
     showMessage(args) {
       return ElMessage({
         duration: 2000,
+        // change width? seems too wide in inspector but looks ok on device
+        // appendTo: '#app',
+        // customClass: 'toast-message',
         grouping: true,
         showClose: true,
         ...args,

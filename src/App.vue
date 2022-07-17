@@ -106,6 +106,15 @@ store.startGame({
 @import "element-plus/theme-chalk/dark/css-vars.css";
 @import "./assets/styles/_variables.scss";
 
+* {
+  // stop double tap zoom on safari. often double tap keys in game.
+  // TODO: register multiple click events when holding down button?
+  // https://stackoverflow.com/a/53236027/6305204
+  touch-action: manipulation;
+  // https://stackoverflow.com/a/66103439/6305204
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   box-sizing: border-box;
   --el-color-success: $bl-green;
@@ -195,6 +204,10 @@ h2 span {
     margin: 0;
     padding: 0;
   }
+}
+
+.toast-message {
+  max-width: 90%;
 }
 
 html.dark {
