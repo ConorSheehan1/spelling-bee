@@ -113,7 +113,7 @@ export const useMainStore = defineStore({
       if (this.isPangram({ word: guess })) {
         this.showMessage({
           type: "success",
-          message: `Pangram! +${score}`,
+          message: `Pangram! +${points}`,
         });
       } else {
         this.showMessage({

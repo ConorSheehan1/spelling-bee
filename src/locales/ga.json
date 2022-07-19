@@ -25,7 +25,7 @@
     "3": "Deas",
     "4": "Ar Fheabhas",
     "5": "An-Mhaith",
-    "6": "Íontach",
+    "6": "Iontach",
     "7": "Dochreidte",
     "8": "Laoch"
   },
@@ -34,7 +34,7 @@
     "nice": "deas",
     "great": "an-mhaith",
     "excellent": "sár-maith",
-    "amazing": "íontach",
+    "amazing": "iontach",
     "awesome": "dochreidte"
   },
   "too short": "ró ghearr",
