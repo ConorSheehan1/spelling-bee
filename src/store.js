@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
+import { incrementDups } from "./utils.js";
 
 export const useMainStore = defineStore({
   id: "main",
@@ -40,6 +41,7 @@ export const useMainStore = defineStore({
       return (minNumWords - 1) + (14); // 33
     },
     getScoreLevels() {
+      // const levels = [
       return [
         0,
         5,
@@ -51,6 +53,11 @@ export const useMainStore = defineStore({
         Math.floor(this.getMaxScore * 0.6),
         Math.floor(this.getMaxScore * 0.7),
       ].sort((a, b) => a - b);
+      // const uniqueLevels = incrementDups(levels);
+      // const minUniqueLevel = Math.min(...uniqueLevels);
+      // // ensure there are never any 2 levels with the same points requirements.
+      // // ensure the first level is 0.
+      // return uniqueLevels.map(l => l - minUniqueLevel);
     },
     getProgressIndex() {
       return (
@@ -77,8 +84,8 @@ export const useMainStore = defineStore({
       return ElMessage({
         duration: 2000,
         // change width? seems too wide in inspector but looks ok on device
-        // appendTo: '#app',
-        // customClass: 'toast-message',
+        appendTo: '#app',
+        customClass: 'toast-message',
         grouping: true,
         showClose: true,
         ...args,

@@ -125,12 +125,6 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  // account for 10px padding on either side of #app
-  max-width: calc(100% - 20px);
-  max-height: 100vh;
-}
-
 // don't allow words to be split. split on space between words
 div {
   white-space: pre-wrap;
@@ -200,6 +194,10 @@ h2 span {
   color: #2c3e50;
   margin-top: 40px;
   padding: 0 10px;
+
+  // account for 10px padding on either side of #app
+  max-width: calc(100% - 20px);
+  max-height: 100vh;
   #title-header {
     margin: 0;
     padding: 0;
@@ -207,7 +205,8 @@ h2 span {
 }
 
 .toast-message {
-  max-width: 90%;
+  max-width: 80%;
+  margin: 0, 1em;
 }
 
 html.dark {

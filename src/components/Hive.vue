@@ -85,6 +85,7 @@ const submitGuess = ({ $t, guess }) => {
 @import "../assets/styles/_variables";
 
 .user-guess {
+  text-transform: uppercase;
   min-height: 2em;
   .middle-letter {
     color: $bl-green;
