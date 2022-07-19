@@ -31,6 +31,7 @@ yarn lintfix
 ```
 
 ## Versioning
+
 ```shell
 # set version prefix
 yarn config set version-tag-prefix "v"

@@ -37,13 +37,13 @@ const zip = (arr1, arr2) => {
 
 const incrementDups = (arr) => {
   const encounters = new Set();
-  return arr.map(num => {
+  return arr.map((num) => {
     while (encounters.has(num)) {
       num += 1;
     }
     encounters.add(num);
     return num;
   });
-}
+};
 
 export { chunk, gridify, incrementDups, shuffle, zip };

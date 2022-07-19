@@ -38,11 +38,12 @@ export const useMainStore = defineStore({
     getMinScore() {
       // 19 4-letter words @ 1 point each, 1 pangram @ min 14 points.
       const minNumWords = 20;
-      return (minNumWords - 1) + (14); // 33
+      return minNumWords - 1 + 14; // 33
     },
     getScoreLevels() {
-      // const levels = [
-      return [
+      // TODO: fix tests, getMaxScore 50 should produce dups
+      const levels = [
+        // return [
         0,
         5,
         Math.floor(this.getMaxScore * 0.1),
@@ -53,11 +54,11 @@ export const useMainStore = defineStore({
         Math.floor(this.getMaxScore * 0.6),
         Math.floor(this.getMaxScore * 0.7),
       ].sort((a, b) => a - b);
-      // const uniqueLevels = incrementDups(levels);
-      // const minUniqueLevel = Math.min(...uniqueLevels);
-      // // ensure there are never any 2 levels with the same points requirements.
-      // // ensure the first level is 0.
-      // return uniqueLevels.map(l => l - minUniqueLevel);
+      const uniqueLevels = incrementDups(levels);
+      const minUniqueLevel = Math.min(...uniqueLevels);
+      // ensure there are never any 2 levels with the same points requirements.
+      // ensure the first level is 0.
+      return uniqueLevels.map((l) => l - minUniqueLevel);
     },
     getProgressIndex() {
       return (
@@ -84,8 +85,8 @@ export const useMainStore = defineStore({
       return ElMessage({
         duration: 2000,
         // change width? seems too wide in inspector but looks ok on device
-        appendTo: '#app',
-        customClass: 'toast-message',
+        appendTo: "#app",
+        customClass: "toast-message",
         grouping: true,
         showClose: true,
         ...args,

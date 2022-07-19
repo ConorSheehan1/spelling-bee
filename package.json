@@ -15,6 +15,10 @@
   "prettier": {
     "bracketSameLine": true
   },
+  "pre-commit": [
+    "test",
+    "lintfix"
+  ],
   "dependencies": {
     "@vueuse/core": "^8.9.2",
     "element-plus": "^2.2.9",

@@ -29,7 +29,7 @@ const onToggleDarkMode = () => {
 onMounted(onToggleDarkMode);
 
 // _ctx.setTimeout is not a function. forward on to vue instance instead.
-const wait2Seconds = func => setTimeout(func, 2000);
+const wait2Seconds = (func) => setTimeout(func, 2000);
 
 // current date yyyy-mm-dd
 const dateString = new Date().toISOString().split("T")[0];
@@ -45,8 +45,6 @@ store.startGame({
   gameDate: dateString,
 });
 // TODO: favicon
-// TODO: tests, run in pre-commit e.g. package.json
-// "pre-commit": [ "tests" ],
 // TODO: extra not in spellingbee: track scores across days
 // TODO: add shake animation on incorrect submition?
 // https://www.reddit.com/r/webdev/comments/su6y4r/what_animations_are_used_in_wordle/

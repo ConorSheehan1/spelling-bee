@@ -1,33 +1,33 @@
-import { setActivePinia, createPinia, defineStore } from 'pinia'
-import { useMainStore } from '../src/store.js'
-import { expect } from 'chai'
-import answers from '../data/allAnswers.js'
+import { setActivePinia, createPinia, defineStore } from "pinia";
+import { useMainStore } from "../src/store.js";
+import { expect } from "chai";
+import answers from "../data/allAnswers.js";
 
-describe('Store', () => {
+describe("Store", () => {
   beforeEach(() => {
     // creates a fresh pinia and make it active so it's automatically picked
     // up by any useStore() call without having to pass it to it:
     // `useStore(pinia)`
-    setActivePinia(createPinia())
-  })
+    setActivePinia(createPinia());
+  });
 
-  describe('getMaxScore', () => {
-    it('gets the max score for a given set of words', () => {
-      const store = useMainStore()
+  describe("getMaxScore", () => {
+    it("gets the max score for a given set of words", () => {
+      const store = useMainStore();
       // test: 1, these: 5, three: 5, total: 11
-      store.answers = ['test', 'these', 'three'];
-      store.availableLetters = "dehorst"
-      store.middleLetter = 't'
-      expect(store.getMaxScore).to.equal(11)
-    })
-  })
+      store.answers = ["test", "these", "three"];
+      store.availableLetters = "dehorst";
+      store.middleLetter = "t";
+      expect(store.getMaxScore).to.equal(11);
+    });
+  });
 
-  describe('getMinScore', () => {
-    it('gets the static min score', () => {
-      const store = useMainStore()
-      expect(store.getMinScore).to.equal(33)
-    })
-  })
+  describe("getMinScore", () => {
+    it("gets the static min score", () => {
+      const store = useMainStore();
+      expect(store.getMinScore).to.equal(33);
+    });
+  });
 
   // describe('getScoreLevels', () => {
   //   it('should get unique scores', () => {
@@ -58,4 +58,4 @@ describe('Store', () => {
   //     }
   //   });
   // })
-})
+});

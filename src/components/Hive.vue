@@ -25,7 +25,10 @@ const submitGuess = ({ $t, guess }) => {
 <template>
   <div class="sb-controls" :style="`z-index: ${ZIndex}`">
     <div class="user-guess">
-      <strong v-for="(letter, index) in userGuess" :class="{'middle-letter': letter === store.middleLetter}" :key="`user-guess-${index}`">
+      <strong
+        v-for="(letter, index) in userGuess"
+        :class="{ 'middle-letter': letter === store.middleLetter }"
+        :key="`user-guess-${index}`">
         {{ letter }}
       </strong>
     </div>
