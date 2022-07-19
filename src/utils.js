@@ -8,6 +8,7 @@ const chunk = ({ arr, size }) => {
   return chunkedArr;
 };
 
+// TODO: sort alphabetically and vertically instead of horizontally?
 // returns array of objects
 // [{1: 'a', 2: 'b', 3:'c'}, {1:'d', 2:'e'}]
 const gridify = ({ arr, size }) => {
