@@ -46,7 +46,7 @@ store.startGame({
 });
 // TODO: favicon
 // TODO: extra not in spellingbee: track scores across days
-// TODO: add shake animation on incorrect submition?
+// TODO: add shake animation on incorrect submission?
 // https://www.reddit.com/r/webdev/comments/su6y4r/what_animations_are_used_in_wordle/
 // need setTimeout to wait for animation before removing guess
 </script>
