@@ -2,7 +2,7 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
-import { incrementDups } from "./utils.js";
+import { incrementDups } from "./utils.ts";
 
 export const useMainStore = defineStore({
   id: "main",
@@ -75,8 +75,7 @@ export const useMainStore = defineStore({
       }, 0);
     },
     getColor() {
-      const ret = this.theme === "light" ? "white" : "#1c1b22";
-      return ret;
+      return this.theme === "light" ? "white" : "#1c1b22";
     },
   },
   actions: {

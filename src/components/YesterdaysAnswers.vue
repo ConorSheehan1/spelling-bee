@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { useMainStore } from "../store.js";
-import { gridify } from "../utils.js";
+import { gridify } from "../utils.ts";
 
 const store = useMainStore();
 const gridData = computed(() =>
