@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import Hive from "./components/Hive.vue";
 import CorrectGuesses from "./components/CorrectGuesses.vue";
@@ -29,10 +29,10 @@ const onToggleDarkMode = () => {
 onMounted(onToggleDarkMode);
 
 // _ctx.setTimeout is not a function. forward on to vue instance instead.
-const wait2Seconds = (func) => setTimeout(func, 2000);
+const wait2Seconds = (func: Function) => setTimeout(func, 2000);
 
 // current date yyyy-mm-dd
-const dateString = new Date().toISOString().split("T")[0];
+const dateString = new Date().toISOString().split("T")[0] as string;
 // current date as int yyyymmdd
 const dateInt = parseInt(dateString.replaceAll("-", ""), 10);
 // pick next puzzle input, % len puzzles to restart if out of index

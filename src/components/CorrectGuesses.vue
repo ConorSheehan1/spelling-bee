@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
 import { useMainStore } from "../store";
 import { gridify } from "../utils";

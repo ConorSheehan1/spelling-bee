@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useMainStore } from "../store";
 import { shuffle } from "../utils";
@@ -10,13 +10,13 @@ defineProps({
 const store = useMainStore();
 
 const otherLetters = ref(
-  store.availableLetters.split("").filter((l) => l !== store.middleLetter)
+  store.availableLetters
+    .split("")
+    .filter((l: string) => l !== store.middleLetter)
 );
 let userGuess = ref("");
 
-// $t: function
-// guess: str
-const submitGuess = ({ $t, guess }) => {
+const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
   userGuess.value = "";
   store.submitGuess({ $t, guess });
 };

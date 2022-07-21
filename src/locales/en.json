@@ -36,5 +36,9 @@
     "excellent": "excellent",
     "amazing": "amazing",
     "awesome": "awesome"
-  }
+  },
+  "too short": "too short",
+  "missing middle letter": "missing middle letter",
+  "not in word list": "not in word list",
+  "already found": "already found"
 }
