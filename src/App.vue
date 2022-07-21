@@ -205,6 +205,7 @@ h2 span {
 .toast-message {
   max-width: 80%;
   margin: 0, 1em;
+  margin-top: 30vh;
 }
 
 html.dark {

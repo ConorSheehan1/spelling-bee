@@ -5,7 +5,7 @@ import { gridify } from "../utils.js";
 
 const store = useMainStore();
 const gridData = computed(() =>
-  gridify({ arr: Array.from(store.yesterdaysAnswers), size: 3 })
+  gridify({ arr: Array.from(store.yesterdaysAnswers.sort()), size: 3 })
 );
 </script>
 
