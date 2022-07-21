@@ -11,15 +11,14 @@ An Irish version of the New York Times Spelling Bee Puzzle.
 https://beacha.ie  
 https://beach-litriochta.netlify.app
 
-
 |                                                  |                                                      |
 | ------------------------------------------------ | ---------------------------------------------------- |
 | ![light-sc](.github/images/beach-litriochta.png) | ![dark-sc](.github/images/beach-litriochta-dark.png) |
 
 ## Credits
 
-* Inspired by https://www.nytimes.com/puzzles/spelling-bee
-* Using foclach word list https://github.com/LindaKeating/foclach/blob/main/src/IrishWords.txt
+- Inspired by https://www.nytimes.com/puzzles/spelling-bee
+- Using foclach word list https://github.com/LindaKeating/foclach/blob/main/src/IrishWords.txt
 
 ## Development
 
