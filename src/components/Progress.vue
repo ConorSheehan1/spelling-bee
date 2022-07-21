@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { useMainStore } from "../store.js";
-import { zip } from "../utils.ts";
+import { useMainStore } from "../store";
+import { zip } from "../utils";
 
 const store = useMainStore();
 const showRanking = ref(false);

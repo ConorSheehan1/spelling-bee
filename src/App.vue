@@ -6,7 +6,7 @@ import Progress from "./components/Progress.vue";
 import YesterdaysAnswers from "./components/YesterdaysAnswers.vue";
 import Help from "./components/Help.vue";
 import allAnswers from "../data/allAnswers";
-import { useMainStore } from "./store.js";
+import { useMainStore } from "./store";
 import { Sunny, Moon } from "@element-plus/icons-vue";
 
 const store = useMainStore();

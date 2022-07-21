@@ -2,23 +2,27 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
-import { incrementDups } from "./utils.ts";
+import { incrementDups } from "./utils";
+import { Answer } from "./models/answer";
 
 export const useMainStore = defineStore({
   id: "main",
   state: () => ({
     // todays puzzle
-    correctGuesses: useStorage("correctGuesses", []),
-    answers: useStorage("answers", []),
-    availableLetters: useStorage("availableLetters", ""),
-    middleLetter: useStorage("middleLetter", ""),
-    gameDate: useStorage("gameDate", ""),
+    correctGuesses: useStorage("correctGuesses", [] as Array<string>),
+    answers: useStorage("answers", [] as Array<string>),
+    availableLetters: useStorage("availableLetters", "" as string),
+    middleLetter: useStorage("middleLetter", "" as string),
+    gameDate: useStorage("gameDate", "" as string),
     // yesterdays puzzle
-    yesterdaysAnswers: useStorage("yesterdaysAnswers", []),
-    yesterdaysAvailableLetters: useStorage("yesterdaysAvailableLetters", ""),
-    yesterdaysMiddleLetter: useStorage("yesterdaysMiddleLetter", ""),
+    yesterdaysAnswers: useStorage("yesterdaysAnswers", [] as Array<string>),
+    yesterdaysAvailableLetters: useStorage(
+      "yesterdaysAvailableLetters",
+      "" as string
+    ),
+    yesterdaysMiddleLetter: useStorage("yesterdaysMiddleLetter", "" as string),
     // theme
-    theme: useStorage("theme", "light"),
+    theme: useStorage("theme", "light" as string),
     // don't need to be in local storage because they doesn't change
     pointsMessages: {
       1: "good",
@@ -26,21 +30,22 @@ export const useMainStore = defineStore({
       6: "great",
       7: "excellent",
       8: "amazing",
-    },
+    } as { [key: number]: string },
   }),
   getters: {
     // TODO: move getMaxScore, getScoreLevels to state? compute once at startGame
-    getMaxScore() {
-      return this.answers.reduce((acc, word) => {
+    getMaxScore(): number {
+      return this.answers.reduce((acc: number, word: string): number => {
+        // @ts-ignore issue with this ref? says .getPoints is undefined here but not outside arrow funcs
         return acc + this.getPoints({ word });
       }, 0);
     },
-    getMinScore() {
+    getMinScore(): number {
       // 19 4-letter words @ 1 point each, 1 pangram @ min 14 points.
       const minNumWords = 20;
       return minNumWords - 1 + 14; // 33
     },
-    getScoreLevels() {
+    getScoreLevels(): Array<number> {
       // TODO: fix tests, getMaxScore 50 should produce dups
       const levels = [
         // return [
@@ -58,29 +63,29 @@ export const useMainStore = defineStore({
       const minUniqueLevel = Math.min(...uniqueLevels);
       // ensure there are never any 2 levels with the same points requirements.
       // ensure the first level is 0.
-      return uniqueLevels.map((l) => l - minUniqueLevel);
+      return uniqueLevels.map((l: number) => l - minUniqueLevel);
     },
-    getProgressIndex() {
+    getProgressIndex(): number {
       return (
         this.getScoreLevels.filter((v) => v <= this.getUserScore).length - 1
       );
     },
-    getProgressPercentage() {
+    getProgressPercentage(): number {
       const progressPercentages = [0, 20, 40, 50, 60, 70, 80, 90, 100];
       return progressPercentages[this.getProgressIndex];
     },
-    getUserScore() {
-      return this.correctGuesses.reduce((acc, word) => {
+    getUserScore(): number {
+      return this.correctGuesses.reduce((acc: number, word: string): number => {
+        // @ts-ignore issue with this ref? says .getPoints is undefined here but not outside arrow funcs
         return acc + this.getPoints({ word });
       }, 0);
     },
-    getColor() {
+    getColor(): string {
       return this.theme === "light" ? "white" : "#1c1b22";
     },
   },
   actions: {
-    // args: Object
-    showMessage(args) {
+    showMessage(args: object) {
       return ElMessage({
         duration: 2000,
         // change width? seems too wide in inspector but looks ok on device
@@ -91,9 +96,7 @@ export const useMainStore = defineStore({
         ...args,
       });
     },
-    // $t: function
-    // guess: string
-    submitGuess({ $t, guess }) {
+    submitGuess({ $t, guess }: { $t: Function; guess: string }) {
       if (guess.length < 4) {
         return this.showMessage({
           message: $t("too short"),
@@ -129,7 +132,15 @@ export const useMainStore = defineStore({
         });
       }
     },
-    startGame({ todaysAnswerObj, yesterdaysAnswerObj, gameDate }) {
+    startGame({
+      todaysAnswerObj,
+      yesterdaysAnswerObj,
+      gameDate,
+    }: {
+      todaysAnswerObj: Answer;
+      yesterdaysAnswerObj: Answer;
+      gameDate: string;
+    }) {
       // set yesterday and todays answers and letters
       // clear yesterdays guesses if present
       // set gameDate to clear guesses tomorrow
@@ -152,18 +163,16 @@ export const useMainStore = defineStore({
       }
       this.gameDate = gameDate;
     },
-    getPoints({ word }) {
+    getPoints({ word }: { word: string }): number {
       if (word.length === 4) return 1;
       if (this.isPangram({ word })) return word.length + 7;
       return word.length;
     },
-    isPangram({ word }) {
+    isPangram({ word }: { word: string }): boolean {
       return this.availableLetters.split("").every((l) => word.includes(l));
     },
     // points per word, score is total of points.
-    // $t: function
-    // points: Number
-    getPointsMessage({ $t, points }) {
+    getPointsMessage({ $t, points }: { $t: Function; points: number }): string {
       const message = this.pointsMessages[points] || "awesome";
       return `${$t(`points.${message}`)}! +${points}`;
     },

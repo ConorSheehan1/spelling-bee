@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { useMainStore } from "../store.js";
-import { shuffle } from "../utils.ts";
+import { useMainStore } from "../store";
+import { shuffle } from "../utils";
 
 // `defineProps` is a compiler macro and no longer needs to be imported.
 defineProps({

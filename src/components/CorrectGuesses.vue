@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
-import { useMainStore } from "../store.js";
-import { gridify } from "../utils.ts";
+import { useMainStore } from "../store";
+import { gridify } from "../utils";
 
 import { useI18n } from "vue-i18n";
 import en from "../locales/en.json";
