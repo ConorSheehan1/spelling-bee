@@ -89,19 +89,19 @@ const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
 
 .user-guess {
   text-transform: uppercase;
-  min-height: 2em;
+  margin-bottom: 10px;
+  height: 35px;
+  font-weight: 700;
+  font-size: 25px;
   .middle-letter {
     color: $bl-green;
   }
 }
 .sb-controls {
   /* put entire hive behind correctGuesses when table is expanded */
-  /* width: 90vw; */
-  padding-top: 60px;
-  padding-bottom: 20px;
   max-width: 290px;
   position: absolute;
-  top: 60%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 1;

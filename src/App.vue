@@ -4,14 +4,14 @@ import Hive from "./components/Hive.vue";
 import CorrectGuesses from "./components/CorrectGuesses.vue";
 import Progress from "./components/Progress.vue";
 import YesterdaysAnswers from "./components/YesterdaysAnswers.vue";
-import Help from "./components/Help.vue";
+import Info from "./components/Info.vue";
 import allAnswers from "../data/allAnswers";
 import { useMainStore } from "./store";
-import { Sunny, Moon } from "@element-plus/icons-vue";
+import { InfoFilled, Calendar, Sunny, Moon } from "@element-plus/icons-vue";
 
 const store = useMainStore();
 const showYesterdaysAnswers = ref(false);
-const showHelp = ref(false);
+const showInfo = ref(false);
 const zindex = ref(0);
 
 const darkmode = ref(store.theme === "dark");
@@ -55,8 +55,8 @@ store.startGame({
   <el-dialog v-model="showYesterdaysAnswers" :title="$t('Yesterdays Answers')">
     <YesterdaysAnswers />
   </el-dialog>
-  <el-dialog v-model="showHelp" :title="$t('How to play')">
-    <Help />
+  <el-dialog v-model="showInfo" :title="$t('How to play')">
+    <Info />
   </el-dialog>
   <div class="common-layout">
     <el-header height="2em" id="title-header">
@@ -66,11 +66,21 @@ store.startGame({
       </h2>
     </el-header>
     <el-menu mode="horizontal" :ellipsis="false">
-      <el-menu-item index="1" @click="showHelp = true">{{
-        $t("Help")
-      }}</el-menu-item>
+      <el-menu-item index="1" @click="showInfo = true">
+        <el-tooltip :content="$t('Info')" placement="top">
+          <el-icon class="menu-icon">
+            <InfoFilled />
+          </el-icon>
+        </el-tooltip>
+        <span class="responsive-menu-text">{{ $t("Info") }}</span>
+      </el-menu-item>
       <el-menu-item index="2" @click="showYesterdaysAnswers = true">
-        {{ $t("Yesterdays Answers") }}
+        <el-tooltip :content="$t('Yesterdays Answers')" placement="top">
+          <el-icon class="menu-icon">
+            <Calendar />
+          </el-icon>
+        </el-tooltip>
+        <span class="responsive-menu-text">{{ $t("Yesterdays Answers") }}</span>
       </el-menu-item>
       <el-menu-item index="3">
         <el-select-v2
@@ -113,9 +123,14 @@ store.startGame({
   -webkit-tap-highlight-color: transparent;
 }
 
+// https://element-plus.org/en-US/guide/theming.html#by-css-variable
+:root {
+  --el-color-success: $bl-green;
+  --el-primary-color: $bl-green;
+}
+
 html {
   box-sizing: border-box;
-  --el-color-success: $bl-green;
 }
 *,
 *:before,
@@ -169,6 +184,7 @@ h2 span {
   color: $bl-green !important;
   &::after {
     color: $bl-green;
+    background-color: $bl-green !important;
   }
 }
 .el-dialog {
@@ -199,6 +215,7 @@ h2 span {
   #title-header {
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
 }
 
@@ -217,6 +234,12 @@ html.dark {
 @media only screen and (max-width: 700px) {
   #app {
     margin-top: 10px;
+  }
+  .responsive-menu-text {
+    display: none;
+  }
+  .menu-icon {
+    margin: 19px 5px;
   }
 }
 </style>
