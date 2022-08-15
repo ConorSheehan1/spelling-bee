@@ -1,5 +1,5 @@
 {
-  "name": "beach-litriochta",
+  "name": "spelling-bee",
   "private": true,
   "version": "2.0.0",
   "scripts": {
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^5.0.0",
     "@vitejs/plugin-vue": "^2.3.3",
+    "cli-progress": "^3.11.2",
     "pre-commit": "^1.2.2",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",

@@ -13,11 +13,11 @@ yarn build
 ### Create derivative files
 
 _Warning_: this operation may result in the same puzzle repeating too often.
-This operation is not idempotent. Re-creating allAnswers.ts may change the order of the puzzles, resulting in the same puzzle twice in a row on deploy in the worst case.
+This operation is not idempotent. Re-creating allAnswers.json may change the order of the puzzles, resulting in the same puzzle twice in a row on deploy in the worst case.
 
-IrishWords.txt must already exist. It must contain a single word per line.
+AllWords.txt must already exist. It must contain a single word per line.
 answers.txt and pangrams.txt are created for debugging.
-allAnswers.ts is created for use in the game.
+allAnswers.json is created for use in the game.
 
 ```shell
 cd data

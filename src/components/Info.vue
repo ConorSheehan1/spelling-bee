@@ -32,7 +32,7 @@ const email = "conor.sheehan.dev@gmail.com";
         {{ $t("OpenSourceText") }}
         <el-link
           type="primary"
-          href="https://github.com/ConorSheehan1/beach-litriochta"
+          href="https://github.com/ConorSheehan1/spelling-bee"
           target="_blank">
           GitHub
           <img
@@ -66,12 +66,12 @@ const email = "conor.sheehan.dev@gmail.com";
         </el-link>
       </li>
       <li>
-        {{ $t("InspirationFoclach") }}
+        {{ $t("WordlistSource") }}
         <el-link
           type="primary"
-          href="https://github.com/LindaKeating/foclach/blob/main/src/IrishWords.txt"
+          href="https://github.com/en-wl/wordlist/blob/master/alt12dicts/2of4brif.txt"
           target="_blank">
-          Foclach
+          Wordlist
         </el-link>
       </li>
     </ul>
@@ -82,7 +82,7 @@ const email = "conor.sheehan.dev@gmail.com";
         {{ $t("BugText") }}
         <el-link
           type="primary"
-          href="https://github.com/ConorSheehan1/beach-litriochta/issues"
+          href="https://github.com/ConorSheehan1/spelling-bee/issues"
           target="_blank"
           >GitHub</el-link
         >

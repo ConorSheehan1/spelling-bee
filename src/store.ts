@@ -46,18 +46,19 @@ export const useMainStore = defineStore({
       return minNumWords - 1 + 14; // 33
     },
     getScoreLevels(): Array<number> {
+      // TODO: gauge difficulty. currently half, used to jump in whole percent points
       // TODO: fix tests, getMaxScore 50 should produce dups
       const levels = [
         // return [
         0,
         5,
+        Math.floor(this.getMaxScore * 0.05),
         Math.floor(this.getMaxScore * 0.1),
+        Math.floor(this.getMaxScore * 0.15),
         Math.floor(this.getMaxScore * 0.2),
+        Math.floor(this.getMaxScore * 0.25),
         Math.floor(this.getMaxScore * 0.3),
-        Math.floor(this.getMaxScore * 0.4),
-        Math.floor(this.getMaxScore * 0.5),
-        Math.floor(this.getMaxScore * 0.6),
-        Math.floor(this.getMaxScore * 0.7),
+        Math.floor(this.getMaxScore * 0.35),
       ].sort((a, b) => a - b);
       const uniqueLevels = incrementDups(levels);
       const minUniqueLevel = Math.min(...uniqueLevels);

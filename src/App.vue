@@ -5,7 +5,7 @@ import CorrectGuesses from "./components/CorrectGuesses.vue";
 import Progress from "./components/Progress.vue";
 import YesterdaysAnswers from "./components/YesterdaysAnswers.vue";
 import Info from "./components/Info.vue";
-import allAnswers from "../data/allAnswers";
+import allAnswers from "../data/allAnswers.json";
 import { useMainStore } from "./store";
 import { InfoFilled, Calendar, Sunny, Moon } from "@element-plus/icons-vue";
 
@@ -61,7 +61,7 @@ store.startGame({
   <div class="common-layout">
     <el-header height="2em" id="title-header">
       <h2>
-        <strong> Beach Litríochta </strong>
+        <strong> Spelling Bee </strong>
         <span> {{ dateString }} </span>
       </h2>
     </el-header>
@@ -83,13 +83,6 @@ store.startGame({
         <span class="responsive-menu-text">{{ $t("Yesterdays Answers") }}</span>
       </el-menu-item>
       <el-menu-item index="3">
-        <el-select-v2
-          style="margin-top: 10px; width: 6em;"
-          v-model="$i18n.locale"
-          :options="['ga', 'en'].map((v) => ({ value: v, label: v }))"
-          placeholder="Please select" />
-      </el-menu-item>
-      <el-menu-item index="4">
         <el-switch
           v-model="darkmode"
           @change="onToggleDarkMode"

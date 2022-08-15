@@ -5,13 +5,11 @@ import { gridify } from "../utils";
 
 import { useI18n } from "vue-i18n";
 import en from "../locales/en.json";
-import ga from "../locales/ga.json";
 
 const { t } = useI18n({
   inheritLocale: true,
   messages: {
     en,
-    ga,
   },
 });
 
