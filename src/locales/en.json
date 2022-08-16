@@ -1,6 +1,7 @@
 {
   "language": "language",
   "Yesterdays Answers": "Yesterdays Answers",
+  "Yesterday": "Yesterday",
   "Info": "Info",
   "OpenSourceText": "The code is all open source on ",
   "KoFiText": "If you're enjoying the game, please consider starring the project on GitHub, or supporting my work on ",
@@ -9,7 +10,7 @@
   "AboutGame": "About the game",
   "AboutGameText": "There is a new puzzle every day. Follow the instructions above to reach the genius rank",
   "Bugs": "Bugs",
-  "BugText": "If you see any bugs or mistranslations, you can log them on",
+  "BugText": "If you see any bugs you can log them on",
   "BugTextEmail": "or email me at",
   "foundWords": "You have found 0 words | You have found 1 word | You have found {n} words",
   "Your words": "Your words",

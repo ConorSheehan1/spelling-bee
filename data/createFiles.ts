@@ -4,6 +4,9 @@ const cliProgress = require('cli-progress');
 // config
 const minNumAnswers = 20;
 const writeSupplementaryFiles = true;
+// 10 years worth of puzzles per file. avoid slow loading page and need for git-lfs with all puzzles in one file.
+// need to update to use allAnswers2 10 years from now. see you in the future o_0
+const numPuzzlesPerFile = 3650;
 
 const data = readFileSync("./data/AllWords.txt");
 // each word is on a new line, first 2 lines are a comments, last line is empty
@@ -35,10 +38,7 @@ const uniqueLetterCombinations = pangrams.reduce((acc: Set<string>, pangram: str
 const numPangrams = pangrams.length;
 const numUniqueLetterCombinations = uniqueLetterCombinations.size;
 
-// {numPangrams: 1047, numUniqueLetterCombinations: 931}
-// console.log({ numPangrams, numUniqueLetterCombinations })
-
-const allAnswers = [];
+let allAnswers = [];
 
 const createPuzzleBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 createPuzzleBar.start(numUniqueLetterCombinations * 7, 0);
@@ -61,12 +61,17 @@ for (let offset = 0; offset < 7; offset++) {
     } // else {
     //   console.log({ availableLetters, middleLetter, len: answers.length })
     // }
+    if (numProcessed % numPuzzlesPerFile === 0) {
+      let fileNum = numProcessed / numPuzzlesPerFile;
+      writeFileSync(
+        `./data/allAnswers${fileNum === 1 ? '' : fileNum}.json`,
+        `${JSON.stringify(allAnswers, null, 2)}`
+      );
+      allAnswers = [];
+    }
   }
 }
 
 createPuzzleBar.stop();
-
-writeFileSync(
-  "./data/allAnswers.json",
-  `${JSON.stringify(allAnswers, null, 2)}`
-);
+// 52493 puzzle combinations
+// 52493 / 365 = 143 years worth of games

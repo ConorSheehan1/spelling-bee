@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { useMainStore } from "../store";
-
-const store = useMainStore();
+import Support from "./Support.vue";
 const email = "conor.sheehan.dev@gmail.com";
 </script>
 
 <template>
   <div class="info-dialog">
-    <h3>{{ $t("helpCreateWords") }}.</h3>
+    <h3>{{ $t("helpCreateWords") }}</h3>
 
     <ul>
       <li>{{ $t("helpWordRule1") }}.</li>
@@ -15,7 +13,7 @@ const email = "conor.sheehan.dev@gmail.com";
       <li>{{ $t("helpWordRule3") }}.</li>
     </ul>
 
-    <h3>{{ $t("helpScorePoints") }}.</h3>
+    <h3>{{ $t("helpScorePoints") }}</h3>
 
     <ul>
       <li>{{ $t("helpPointsRule1") }}.</li>
@@ -23,38 +21,13 @@ const email = "conor.sheehan.dev@gmail.com";
       <li>{{ $t("helpPointsRule3A") }}. {{ $t("helpPointsRule3B") }}!</li>
     </ul>
 
+    <h3>Support</h3>
+    <Support />
+
     <h3>{{ $t("AboutGame") }}</h3>
     <ul>
       <li>
         {{ $t("AboutGameText") }}
-      </li>
-      <li>
-        {{ $t("OpenSourceText") }}
-        <el-link
-          type="primary"
-          href="https://github.com/ConorSheehan1/spelling-bee"
-          target="_blank">
-          GitHub
-          <img
-            height="36"
-            src="../assets/github.svg"
-            alt="github"
-            class="github-icon" />
-        </el-link>
-      </li>
-      <li>
-        {{ $t("KoFiText") }}
-        <el-link
-          type="primary"
-          href="https://ko-fi.com/A0A1DOQQD"
-          target="_blank">
-          <img
-            height="36"
-            style="border: 0px; height: 36px"
-            src="https://cdn.ko-fi.com/cdn/kofi2.png?v=3"
-            border="0"
-            alt="Buy Me a Coffee at ko-fi.com" />
-        </el-link>
       </li>
       <li>
         {{ $t("InspirationSpellingBee") }}
