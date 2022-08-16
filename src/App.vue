@@ -60,7 +60,6 @@ store.startGame({
   yesterdaysAnswerObj,
   gameDate: dateString,
 });
-// TODO: favicon
 // TODO: remove i18n
 // TODO: extra not in spellingbee: track scores across days
 // TODO: add shake animation on incorrect submission?
