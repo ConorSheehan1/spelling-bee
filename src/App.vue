@@ -13,6 +13,7 @@ const store = useMainStore();
 const showYesterdaysAnswers = ref(false);
 const showInfo = ref(false);
 const zindex = ref(0);
+let timer: any;
 
 const darkmode = ref(store.theme === "dark");
 
@@ -26,10 +27,19 @@ const onToggleDarkMode = () => {
   }
 };
 
-onMounted(onToggleDarkMode);
+const onOpenCorrectGuesses = () => {
+  // without clearing timer, if user toggles correct guesses quickly, it will fade to background after timeout
+  clearTimeout(timer);
+  zindex.value = -1;
+};
 
-// _ctx.setTimeout is not a function. forward on to vue instance instead.
-const wait2Seconds = (func: Function) => setTimeout(func, 2000);
+const onCloseCorrectGuesses = () => {
+  timer = setTimeout(() => {
+    zindex.value = 0;
+  }, 2000);
+};
+
+onMounted(onToggleDarkMode);
 
 // current date yyyy-mm-dd
 const dateString = new Date().toISOString().split("T")[0] as string;
@@ -96,8 +106,8 @@ store.startGame({
     </el-menu>
     <Progress />
     <CorrectGuesses
-      @open="zindex = -1"
-      @close="wait2Seconds(() => (zindex = 0))" />
+      @open="onOpenCorrectGuesses"
+      @close="onCloseCorrectGuesses" />
     <Hive :ZIndex="zindex" />
   </div>
 </template>
