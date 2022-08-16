@@ -94,7 +94,7 @@ const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
   font-weight: 700;
   font-size: 25px;
   .middle-letter {
-    color: $bl-green;
+    color: $bl-yellow;
   }
 }
 .sb-controls {
@@ -133,7 +133,7 @@ const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
 }
 .hive-cell:first-child .cell-fill {
   cursor: pointer;
-  fill: $bl-green;
+  fill: $bl-yellow;
   transition: all 100ms;
 }
 .hive-cell:nth-child(1) {

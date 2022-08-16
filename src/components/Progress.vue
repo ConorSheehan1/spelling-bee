@@ -23,10 +23,11 @@ const showRanking = ref(false);
     <strong class="rank-level">
       {{ $t(`rank.${store.getProgressIndex}`) }}
     </strong>
+    <!-- can't use bl-yellow directly, need to pass hex in here -->
     <el-progress
       :percentage="store.getProgressPercentage"
       :stroke-width="20"
-      color="#20a866"
+      color="#fce303"
       :format="() => store.getUserScore" />
   </div>
 </template>

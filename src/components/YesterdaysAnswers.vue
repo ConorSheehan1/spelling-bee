@@ -30,6 +30,6 @@ const gridData = computed(() =>
 
 .middle-letter {
   font-weight: bold;
-  color: $bl-green;
+  color: $bl-yellow;
 }
 </style>

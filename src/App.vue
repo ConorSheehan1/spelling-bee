@@ -87,7 +87,7 @@ store.startGame({
           v-model="darkmode"
           @change="onToggleDarkMode"
           class="darkmode-switch"
-          style="--el-switch-on-color: $bl-green"
+          style="--el-switch-on-color: $bl-yellow"
           inline-prompt
           size="large"
           :active-icon="Sunny"
@@ -118,8 +118,8 @@ store.startGame({
 
 // https://element-plus.org/en-US/guide/theming.html#by-css-variable
 :root {
-  --el-color-success: $bl-green;
-  --el-primary-color: $bl-green;
+  --el-color-success: $bl-yellow;
+  --el-primary-color: $bl-yellow;
 }
 
 html {
@@ -166,18 +166,18 @@ h2 span {
     padding: 0;
   }
   .el-menu-item.is-active {
-    color: $bl-green !important;
+    color: $bl-yellow !important;
     border-bottom-color: currentcolor;
   }
 }
 .is-focused {
-  border-color: $bl-green !important;
+  border-color: $bl-yellow !important;
 }
 .is-selected {
-  color: $bl-green !important;
+  color: $bl-yellow !important;
   &::after {
-    color: $bl-green;
-    background-color: $bl-green !important;
+    color: $bl-yellow;
+    background-color: $bl-yellow !important;
   }
 }
 .el-dialog {
@@ -189,8 +189,8 @@ h2 span {
 .el-message--success {
   --el-message-bg-color: unset;
   --el-message-text-color: unset;
-  background-color: lighten($bl-green, 50) !important;
-  color: $bl-green !important;
+  background-color: $bl-yellow !important;
+  color: black !important;
 }
 
 #app {
@@ -220,7 +220,7 @@ h2 span {
 
 html.dark {
   header strong {
-    color: $bl-green;
+    color: $bl-yellow;
   }
 }
 
