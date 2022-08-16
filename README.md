@@ -1,22 +1,19 @@
-# Spelling bee
+# Spelling Bee
 
 [![Build Status](https://github.com/ConorSheehan1/spelling-bee/workflows/ci/badge.svg)](https://github.com/ConorSheehan1/spelling-bee/actions/)
-
-<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/4993f6ee-baeb-47bf-9e4e-69e5814aadc5/deploy-status)](https://app.netlify.com/sites/spelling-bee/deploys) -->
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7a6eaef1-46b9-4e37-8761-5efcafb5df47/deploy-status)](https://app.netlify.com/sites/spelling-b/deploys)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An open source game inspired by the New York Times Spelling Bee Puzzle.
 New challenge every day. Create words using letters from the hive.
 
-<!-- ## Links
+## Links
 
-https://beacha.ie
-https://spelling-bee.netlify.app
+https://spelling-b.netlify.app
 
-|                                                  |                                                      |
-| ------------------------------------------------ | ---------------------------------------------------- |
-| ![light-sc](.github/images/spelling-bee.png) | ![dark-sc](.github/images/spelling-bee-dark.png) | -->
+|                                              |                                                  |
+| -------------------------------------------- | ------------------------------------------------ |
+| ![light-sc](.github/images/spelling-bee.png) | ![dark-sc](.github/images/spelling-bee-dark.png) |
 
 ## Credits
 

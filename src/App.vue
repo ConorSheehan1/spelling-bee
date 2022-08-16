@@ -61,6 +61,7 @@ store.startGame({
   gameDate: dateString,
 });
 // TODO: favicon
+// TODO: remove i18n
 // TODO: extra not in spellingbee: track scores across days
 // TODO: add shake animation on incorrect submission?
 // https://www.reddit.com/r/webdev/comments/su6y4r/what_animations_are_used_in_wordle/
