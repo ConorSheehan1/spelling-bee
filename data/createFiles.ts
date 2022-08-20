@@ -1,5 +1,6 @@
 const { readFileSync, writeFileSync } = require("fs");
 const cliProgress = require('cli-progress');
+const { shuffle } = require('../src/utils');
 
 // config
 const minNumAnswers = 20;
@@ -37,6 +38,7 @@ const uniqueLetterCombinations = pangrams.reduce((acc: Set<string>, pangram: str
 }, new Set());
 const numPangrams = pangrams.length;
 const numUniqueLetterCombinations = uniqueLetterCombinations.size;
+const uniqueLetterCombinationsShuffled = shuffle(Array.from(uniqueLetterCombinations))
 
 let allAnswers = [];
 
@@ -48,7 +50,7 @@ for (let offset = 0; offset < 7; offset++) {
   for (let i = 0; i < numUniqueLetterCombinations; i++) {
     numProcessed += 1;
     createPuzzleBar.update(numProcessed);
-    const availableLetters = Array.from(uniqueLetterCombinations)[i] as string;
+    const availableLetters = uniqueLetterCombinationsShuffled[i] as string;
     // for each unique letter combination, choose middle letter in sequence
     // e.g. [0,1,2,3,4,5,6,0,1,2,3...], [1,2,3,4,5,6,0,1,2,3...]
     const middleLetter = availableLetters[(i + offset) % 7];

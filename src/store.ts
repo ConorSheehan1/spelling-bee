@@ -47,6 +47,7 @@ export const useMainStore = defineStore({
     },
     getScoreLevels(): Array<number> {
       // TODO: fix tests, getMaxScore 50 should produce dups
+      // difficulty levels
       const levels = [
         // return [
         0,
@@ -56,8 +57,8 @@ export const useMainStore = defineStore({
         Math.floor(this.getMaxScore * 0.3),
         Math.floor(this.getMaxScore * 0.4),
         Math.floor(this.getMaxScore * 0.5),
+        Math.floor(this.getMaxScore * 0.55),
         Math.floor(this.getMaxScore * 0.6),
-        Math.floor(this.getMaxScore * 0.7),
       ].sort((a, b) => a - b);
       const uniqueLevels = incrementDups(levels);
       const minUniqueLevel = Math.min(...uniqueLevels);
