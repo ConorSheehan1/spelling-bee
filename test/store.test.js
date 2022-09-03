@@ -1,6 +1,6 @@
 import { setActivePinia, createPinia, defineStore } from "pinia";
 import { useMainStore } from "../src/store";
-import { beforeEach, describe, it, expect } from "vitest";
+import { beforeEach, describe, it, expect, vi } from "vitest";
 import answers from "../data/allAnswers.json";
 
 describe("Store", () => {
@@ -26,6 +26,63 @@ describe("Store", () => {
     it("gets the static min score", () => {
       const store = useMainStore();
       expect(store.getMinScore).to.equal(33);
+    });
+  });
+
+  describe("startGame", () => {
+    const allAnswers = [
+      {
+        answers: ["error", "ooze", "otter"],
+        middleLetter: "o",
+        availableLetters: "eioprtz",
+      },
+      {
+        answers: ["eels", "elegies", "elite"],
+        middleLetter: "e",
+        availableLetters: "egilrst",
+      },
+      {
+        answers: ["felt", "feat", "feet"],
+        middleLetter: "l",
+        availableLetters: "aeflrst",
+      },
+    ];
+    describe("when today is the first of the month and a new game", () => {
+      // had issue with incorrect state of yesterdays answers in the past.
+      // converting date to int will cause yesterdays answers to be too far in the past.
+      //  e.g. 2022-01-01 -> 20220101 but yesterdays answers should be 2021-12-31, but would be 20220100
+      beforeEach(() => {
+        vi.useFakeTimers();
+        vi.setSystemTime(new Date("2023-01-01"));
+      });
+      it("should get todays and yesterdays answers correctly", () => {
+        const store = useMainStore();
+        store.startGame({ allAnswers });
+        expect(store.correctGuesses).toEqual([]);
+        expect(store.answers).toEqual(["felt", "feat", "feet"]);
+        expect(store.yesterdaysAnswers).toEqual(["eels", "elegies", "elite"]);
+        expect(store.availableLetters).toEqual("aeflrst");
+        expect(store.middleLetter).toEqual("l");
+        expect(store.yesterdaysAvailableLetters).toEqual("egilrst");
+        expect(store.yesterdaysMiddleLetter).toEqual("e");
+      });
+    });
+    describe("when today is not a new game", () => {
+      let gameDate;
+      beforeEach(() => {
+        gameDate = new Date("2023-02-23");
+        vi.useFakeTimers();
+        vi.setSystemTime(gameDate);
+      });
+      it("should exit early without setting up a new game", () => {
+        const store = useMainStore();
+        store.gameDate = gameDate;
+        store.correctGuesses = ["test"];
+        // should exit early
+        expect(store.startGame({ allAnswers })).toEqual(false);
+        // answers should not be reset to []
+        expect(store.correctGuesses).toEqual(["test"]);
+      });
     });
   });
 

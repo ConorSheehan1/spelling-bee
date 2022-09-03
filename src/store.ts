@@ -2,8 +2,11 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
+import { differenceInDays, isSameDay } from "date-fns";
 import { incrementDups } from "./utils";
 import { Answer } from "./models/answer";
+
+const epoch = new Date("2022-01-01");
 
 export const useMainStore = defineStore({
   id: "main",
@@ -13,7 +16,7 @@ export const useMainStore = defineStore({
     answers: useStorage("answers", [] as Array<string>),
     availableLetters: useStorage("availableLetters", "" as string),
     middleLetter: useStorage("middleLetter", "" as string),
-    gameDate: useStorage("gameDate", "" as string),
+    gameDate: useStorage("gameDate", epoch as Date),
     // yesterdays puzzle
     yesterdaysAnswers: useStorage("yesterdaysAnswers", [] as Array<string>),
     yesterdaysAvailableLetters: useStorage(
@@ -133,18 +136,23 @@ export const useMainStore = defineStore({
         });
       }
     },
-    startGame({
-      todaysAnswerObj,
-      yesterdaysAnswerObj,
-      gameDate,
-    }: {
-      todaysAnswerObj: Answer;
-      yesterdaysAnswerObj: Answer;
-      gameDate: string;
-    }) {
-      // set yesterday and todays answers and letters
-      // clear yesterdays guesses if present
+    startGame({ allAnswers }: { allAnswers: Array<Answer> }) {
+      const now = new Date();
+      // if it's the same day, don't restart the game
+      if (isSameDay(this.gameDate, now)) return false;
+
       // set gameDate to clear guesses tomorrow
+      this.gameDate = now;
+      // new game so reset guesses
+      this.correctGuesses = [];
+      // use days since arbitrary epoch to ensure yesterdays answers is always 1 behind todays.
+      const daysSinceEpoch = differenceInDays(this.gameDate, epoch);
+      // pick next puzzle input, % len puzzles to restart if out of index (circular)
+      const todaysAnswerObj = allAnswers[daysSinceEpoch % allAnswers.length];
+      const yesterdaysAnswerObj =
+        allAnswers[(daysSinceEpoch - 1) % allAnswers.length];
+
+      // set yesterday and todays answers and letters
       const { answers, availableLetters, middleLetter } = todaysAnswerObj;
       const {
         answers: yesterdaysAnswers,
@@ -158,11 +166,6 @@ export const useMainStore = defineStore({
       this.yesterdaysAnswers = yesterdaysAnswers;
       this.yesterdaysAvailableLetters = yesterdaysAvailableLetters;
       this.yesterdaysMiddleLetter = yesterdaysMiddleLetter;
-
-      if (gameDate !== this.gameDate) {
-        this.correctGuesses = [];
-      }
-      this.gameDate = gameDate;
     },
     getPoints({ word }: { word: string }): number {
       if (word.length === 4) return 1;
