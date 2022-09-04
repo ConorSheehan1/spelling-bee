@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "@vueuse/core": "^8.9.2",
+    "date-fns": "^2.29.2",
     "element-plus": "^2.2.9",
     "pinia": "^2.0.15",
     "sass": "^1.53.0",

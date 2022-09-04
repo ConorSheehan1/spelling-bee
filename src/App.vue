@@ -47,19 +47,7 @@ const onCloseCorrectGuesses = () => {
 
 onMounted(onToggleDarkMode);
 
-// current date yyyy-mm-dd
-const dateString = new Date().toISOString().split("T")[0] as string;
-// current date as int yyyymmdd
-const dateInt = parseInt(dateString.replaceAll("-", ""), 10);
-// pick next puzzle input, % len puzzles to restart if out of index
-const todaysAnswerObj = allAnswers[dateInt % allAnswers.length];
-const yesterdaysAnswerObj = allAnswers[(dateInt - 1) % allAnswers.length];
-// reset old answers if necessary, make answers available in all components
-store.startGame({
-  todaysAnswerObj,
-  yesterdaysAnswerObj,
-  gameDate: dateString,
-});
+store.startGame({ allAnswers });
 // TODO: remove i18n
 // TODO: extra not in spellingbee: track scores across days
 // TODO: add shake animation on incorrect submission?
