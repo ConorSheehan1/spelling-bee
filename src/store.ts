@@ -87,8 +87,14 @@ export const useMainStore = defineStore({
     getColor(): string {
       return this.theme === "light" ? "white" : "#1c1b22";
     },
+    getGameDate(): Date {
+      // handle case where gameDate may still be string in localStorage from previous code
+      return typeof this.gameDate === "string"
+        ? new Date(this.gameDate)
+        : this.gameDate;
+    },
     getGameDateString(): string {
-      return this.gameDate.toISOString().split("T")[0];
+      return this.getGameDate.toISOString().split("T")[0];
     },
   },
   actions: {
@@ -142,7 +148,7 @@ export const useMainStore = defineStore({
     startGame({ allAnswers }: { allAnswers: Array<Answer> }) {
       const now = new Date();
       // if it's the same day, don't restart the game
-      if (isSameDay(this.gameDate, now)) return false;
+      if (isSameDay(this.getGameDate, now)) return false;
 
       // set gameDate to clear guesses tomorrow
       this.gameDate = now;
