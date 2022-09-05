@@ -88,7 +88,7 @@ export const useMainStore = defineStore({
       return this.theme === "light" ? "white" : "#1c1b22";
     },
     getGameDateString(): string {
-      return this.gameDate.toISOString().split('T')[0];
+      return this.gameDate.toISOString().split("T")[0];
     },
   },
   actions: {
