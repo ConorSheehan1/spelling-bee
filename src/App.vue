@@ -74,7 +74,7 @@ store.startGame({ allAnswers });
     <el-header height="2em" id="title-header">
       <h2>
         <strong> Spelling Bee </strong>
-        <span> {{ dateString }} </span>
+        <span> {{ store.getGameDateString }} </span>
       </h2>
     </el-header>
     <el-menu mode="horizontal" :ellipsis="false">

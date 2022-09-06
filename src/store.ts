@@ -17,6 +17,7 @@ export const useMainStore = defineStore({
     availableLetters: useStorage("availableLetters", "" as string),
     middleLetter: useStorage("middleLetter", "" as string),
     gameDate: useStorage("gameDate", epoch as Date),
+    lastGameDate: useStorage("lastGameDate", new Date() as Date),
     // yesterdays puzzle
     yesterdaysAnswers: useStorage("yesterdaysAnswers", [] as Array<string>),
     yesterdaysAvailableLetters: useStorage(
@@ -24,7 +25,6 @@ export const useMainStore = defineStore({
       "" as string
     ),
     yesterdaysMiddleLetter: useStorage("yesterdaysMiddleLetter", "" as string),
-    // theme
     theme: useStorage("theme", "light" as string),
     // don't need to be in local storage because they doesn't change
     pointsMessages: {
@@ -39,8 +39,8 @@ export const useMainStore = defineStore({
     // TODO: move getMaxScore, getScoreLevels to state? compute once at startGame
     getMaxScore(): number {
       return this.answers.reduce((acc: number, word: string): number => {
-        // @ts-ignore issue with this ref? says .getPoints is undefined here but not outside arrow funcs
-        return acc + this.getPoints({ word });
+        // @ts-ignore issue with this ref? says .calculatePoints is undefined here but not outside arrow funcs
+        return acc + this.calculatePoints({ word });
       }, 0);
     },
     getMinScore(): number {
@@ -80,12 +80,21 @@ export const useMainStore = defineStore({
     },
     getUserScore(): number {
       return this.correctGuesses.reduce((acc: number, word: string): number => {
-        // @ts-ignore issue with this ref? says .getPoints is undefined here but not outside arrow funcs
-        return acc + this.getPoints({ word });
+        // @ts-ignore issue with this ref? says .calculatePoints is undefined here but not outside arrow funcs
+        return acc + this.calculatePoints({ word });
       }, 0);
     },
     getColor(): string {
       return this.theme === "light" ? "white" : "#1c1b22";
+    },
+    getGameDate(): Date {
+      // handle case where gameDate may still be string in localStorage from previous code
+      return typeof this.gameDate === "string"
+        ? new Date(this.gameDate)
+        : this.gameDate;
+    },
+    getGameDateString(): string {
+      return this.getGameDate.toISOString().split("T")[0];
     },
   },
   actions: {
@@ -123,7 +132,7 @@ export const useMainStore = defineStore({
       }
 
       this.correctGuesses.push(guess);
-      const points = this.getPoints({ word: guess });
+      const points = this.calculatePoints({ word: guess });
       if (this.isPangram({ word: guess })) {
         this.showMessage({
           type: "success",
@@ -132,14 +141,14 @@ export const useMainStore = defineStore({
       } else {
         this.showMessage({
           type: "success",
-          message: this.getPointsMessage({ $t, points }),
+          message: this.generatePointsMessage({ $t, points }),
         });
       }
     },
     startGame({ allAnswers }: { allAnswers: Array<Answer> }) {
       const now = new Date();
       // if it's the same day, don't restart the game
-      if (isSameDay(this.gameDate, now)) return false;
+      if (isSameDay(this.getGameDate, now)) return false;
 
       // set gameDate to clear guesses tomorrow
       this.gameDate = now;
@@ -152,22 +161,44 @@ export const useMainStore = defineStore({
       const yesterdaysAnswerObj =
         allAnswers[(daysSinceEpoch - 1) % allAnswers.length];
 
+      this.setYesterdaysAnswersAndLastGameDate({ yesterdaysAnswerObj });
+
       // set yesterday and todays answers and letters
       const { answers, availableLetters, middleLetter } = todaysAnswerObj;
-      const {
-        answers: yesterdaysAnswers,
-        availableLetters: yesterdaysAvailableLetters,
-        middleLetter: yesterdaysMiddleLetter,
-      } = yesterdaysAnswerObj;
 
       this.answers = answers;
       this.availableLetters = availableLetters;
       this.middleLetter = middleLetter;
-      this.yesterdaysAnswers = yesterdaysAnswers;
-      this.yesterdaysAvailableLetters = yesterdaysAvailableLetters;
-      this.yesterdaysMiddleLetter = yesterdaysMiddleLetter;
     },
-    getPoints({ word }: { word: string }): number {
+    setYesterdaysAnswersAndLastGameDate({
+      yesterdaysAnswerObj,
+    }: {
+      yesterdaysAnswerObj: Answer;
+    }): string {
+      // note: must be run after gameDate is set and before answers, availableLetters, and middleLetter are set!
+      // the algorithm used to pick todays and yesterdays answers may change.
+      // e.g. https://github.com/ConorSheehan1/spelling-bee/issues/3
+      // bug where yesterdays answers were always incorrect at the first of the month.
+      // to avoid this, use todays answers from local storage as yesterdays answers if gamedate was yesterday
+      if (differenceInDays(this.gameDate, this.lastGameDate) === 1) {
+        this.yesterdaysAnswers = this.answers;
+        this.yesterdaysAvailableLetters = this.availableLetters;
+        this.yesterdaysMiddleLetter = this.middleLetter;
+        return "local-storage-cache";
+      } else {
+        const {
+          answers: yesterdaysAnswers,
+          availableLetters: yesterdaysAvailableLetters,
+          middleLetter: yesterdaysMiddleLetter,
+        } = yesterdaysAnswerObj;
+        this.yesterdaysAnswers = yesterdaysAnswers;
+        this.yesterdaysAvailableLetters = yesterdaysAvailableLetters;
+        this.yesterdaysMiddleLetter = yesterdaysMiddleLetter;
+        this.lastGameDate = this.gameDate;
+        return "cache-bust";
+      }
+    },
+    calculatePoints({ word }: { word: string }): number {
       if (word.length === 4) return 1;
       if (this.isPangram({ word })) return word.length + 7;
       return word.length;
@@ -176,7 +207,13 @@ export const useMainStore = defineStore({
       return this.availableLetters.split("").every((l) => word.includes(l));
     },
     // points per word, score is total of points.
-    getPointsMessage({ $t, points }: { $t: Function; points: number }): string {
+    generatePointsMessage({
+      $t,
+      points,
+    }: {
+      $t: Function;
+      points: number;
+    }): string {
       const message = this.pointsMessages[points] || "awesome";
       return `${$t(`points.${message}`)}! +${points}`;
     },
