@@ -22,7 +22,7 @@ export default defineConfig({
       output: {
         entryFileNames: `[name]-${dateHash}.js`,
         chunkFileNames: `[name]-${dateHash}.js`,
-        assetFileNames: `[name]-${dateHash}.[ext]`
+        assetFileNames: `[name]-${dateHash}.[ext]`,
       },
     },
   },
