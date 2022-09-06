@@ -17,6 +17,7 @@ export const useMainStore = defineStore({
     availableLetters: useStorage("availableLetters", "" as string),
     middleLetter: useStorage("middleLetter", "" as string),
     gameDate: useStorage("gameDate", epoch as Date),
+    lastGameDate: useStorage("lastGameDate", new Date() as Date),
     // yesterdays puzzle
     yesterdaysAnswers: useStorage("yesterdaysAnswers", [] as Array<string>),
     yesterdaysAvailableLetters: useStorage(
@@ -24,7 +25,6 @@ export const useMainStore = defineStore({
       "" as string
     ),
     yesterdaysMiddleLetter: useStorage("yesterdaysMiddleLetter", "" as string),
-    // theme
     theme: useStorage("theme", "light" as string),
     // don't need to be in local storage because they doesn't change
     pointsMessages: {
@@ -161,24 +161,42 @@ export const useMainStore = defineStore({
       const yesterdaysAnswerObj =
         allAnswers[(daysSinceEpoch - 1) % allAnswers.length];
 
+      this.setYesterdaysAnswersAndLastGameDate({ yesterdaysAnswerObj });
+
       // set yesterday and todays answers and letters
       const { answers, availableLetters, middleLetter } = todaysAnswerObj;
-      const {
-        answers: yesterdaysAnswers,
-        availableLetters: yesterdaysAvailableLetters,
-        middleLetter: yesterdaysMiddleLetter,
-      } = yesterdaysAnswerObj;
 
       this.answers = answers;
       this.availableLetters = availableLetters;
       this.middleLetter = middleLetter;
+    },
+    setYesterdaysAnswersAndLastGameDate({
+      yesterdaysAnswerObj,
+    }: {
+      yesterdaysAnswerObj: Answer;
+    }): string {
+      // note: must be run after gameDate is set and before answers, availableLetters, and middleLetter are set!
       // the algorithm used to pick todays and yesterdays answers may change.
       // e.g. https://github.com/ConorSheehan1/spelling-bee/issues/3
       // bug where yesterdays answers were always incorrect at the first of the month.
       // to avoid this, use todays answers from local storage as yesterdays answers if gamedate was yesterday
-      this.yesterdaysAnswers = yesterdaysAnswers;
-      this.yesterdaysAvailableLetters = yesterdaysAvailableLetters;
-      this.yesterdaysMiddleLetter = yesterdaysMiddleLetter;
+      if (differenceInDays(this.gameDate, this.lastGameDate) === 1) {
+        this.yesterdaysAnswers = this.answers;
+        this.yesterdaysAvailableLetters = this.availableLetters;
+        this.yesterdaysMiddleLetter = this.middleLetter;
+        return "local-storage-cache";
+      } else {
+        const {
+          answers: yesterdaysAnswers,
+          availableLetters: yesterdaysAvailableLetters,
+          middleLetter: yesterdaysMiddleLetter,
+        } = yesterdaysAnswerObj;
+        this.yesterdaysAnswers = yesterdaysAnswers;
+        this.yesterdaysAvailableLetters = yesterdaysAvailableLetters;
+        this.yesterdaysMiddleLetter = yesterdaysMiddleLetter;
+        this.lastGameDate = this.gameDate;
+        return "cache-bust";
+      }
     },
     calculatePoints({ word }: { word: string }): number {
       if (word.length === 4) return 1;

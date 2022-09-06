@@ -79,9 +79,9 @@ describe("Store", () => {
           store.startGame({ allAnswers });
           expect(store.correctGuesses).toEqual([]);
           expect(store.answers).toEqual(["felt", "feat", "feet"]);
-          expect(store.yesterdaysAnswers).toEqual(["eels", "elegies", "elite"]);
           expect(store.availableLetters).toEqual("aeflrst");
           expect(store.middleLetter).toEqual("l");
+          expect(store.yesterdaysAnswers).toEqual(["eels", "elegies", "elite"]);
           expect(store.yesterdaysAvailableLetters).toEqual("egilrst");
           expect(store.yesterdaysMiddleLetter).toEqual("e");
         });
@@ -92,12 +92,64 @@ describe("Store", () => {
           store.startGame({ allAnswers });
           expect(store.correctGuesses).toEqual([]);
           expect(store.answers).toEqual(["felt", "feat", "feet"]);
-          expect(store.yesterdaysAnswers).toEqual(["eels", "elegies", "elite"]);
           expect(store.availableLetters).toEqual("aeflrst");
           expect(store.middleLetter).toEqual("l");
+          expect(store.yesterdaysAnswers).toEqual(["eels", "elegies", "elite"]);
           expect(store.yesterdaysAvailableLetters).toEqual("egilrst");
           expect(store.yesterdaysMiddleLetter).toEqual("e");
         });
+      });
+    });
+    describe("when lastGameDate is yesterday", () => {
+      let gameDate;
+      let lastGameDate;
+      beforeEach(() => {
+        gameDate = new Date("2222-02-05");
+        lastGameDate = new Date("2222-02-04");
+        store.gameDate = lastGameDate;
+        vi.useFakeTimers();
+        vi.setSystemTime(gameDate);
+      });
+      it("should use the local storage cache to load yesterdaysAnswers", () => {
+        store.lastGameDate = lastGameDate;
+        store.answers = ["test", "use", "cache"];
+        store.middleLetter = "e";
+        store.availableLetters = "acehstu";
+        store.startGame({ allAnswers });
+        expect(store.correctGuesses).toEqual([]);
+        expect(store.answers).toEqual(["error", "ooze", "otter"]);
+        expect(store.availableLetters).toEqual("eioprtz");
+        expect(store.middleLetter).toEqual("o");
+        expect(store.yesterdaysAnswers).toEqual(["test", "use", "cache"]);
+        expect(store.yesterdaysAvailableLetters).toEqual("acehstu");
+        expect(store.yesterdaysMiddleLetter).toEqual("e");
+      });
+    });
+    describe("when lastGameDate is not yesterday", () => {
+      let gameDate;
+      let lastGameDate;
+      beforeEach(() => {
+        gameDate = new Date("2222-02-05");
+        lastGameDate = new Date("2222-02-03");
+        store.gameDate = lastGameDate;
+        vi.useFakeTimers();
+        vi.setSystemTime(gameDate);
+      });
+      it("should not use the local storage cache to load yesterdaysAnswers", () => {
+        store.lastGameDate = lastGameDate;
+        store.answers = ["test", "use", "cache"];
+        store.middleLetter = "e";
+        store.availableLetters = "acehstu";
+        store.startGame({ allAnswers });
+        expect(store.correctGuesses).toEqual([]);
+        expect(store.answers).toEqual(["error", "ooze", "otter"]);
+        expect(store.availableLetters).toEqual("eioprtz");
+        expect(store.middleLetter).toEqual("o");
+        // even though values are cached explicitly above,
+        // because lastGameDate was not 1 day ago, we pull new values for yesterdaysAnswers
+        expect(store.yesterdaysAnswers).toEqual(["felt", "feat", "feet"]);
+        expect(store.yesterdaysAvailableLetters).toEqual("aeflrst");
+        expect(store.yesterdaysMiddleLetter).toEqual("l");
       });
     });
     describe("when today is not a new game", () => {
