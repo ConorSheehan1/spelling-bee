@@ -212,4 +212,13 @@ html.dark {
     color: $bl-grey;
   }
 }
+
+@media (orientation: landscape) {
+  .sb-controls {
+    top: max(65%, 500px);
+  }
+  .hive-actions {
+    padding-bottom: 2rem;
+  }
+}
 </style>
