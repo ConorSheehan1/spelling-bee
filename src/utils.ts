@@ -33,6 +33,7 @@ const gridify = ({
   });
 };
 
+// allow random generator to be seeded for more predictable results of createFiles.ts
 const createRandomGenerator = ({ seed = 1 }: { seed?: number } = {}): Function => {
   // https://stackoverflow.com/a/19303725/6305204
   // produces random floats between 0 and 1.0
@@ -42,8 +43,6 @@ const createRandomGenerator = ({ seed = 1 }: { seed?: number } = {}): Function =
   }
   return random;
 }
-
-
 
 // https://stackoverflow.com/a/46545530/6305204
 const shuffle = (array: Array<any>, seed: number = 1): Array<any> => {
