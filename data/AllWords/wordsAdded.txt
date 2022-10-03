@@ -43,6 +43,8 @@ parser
 parsers
 redeemer
 redeemers
+renter
+renters
 sherpa
 sherpas
 uncallable
