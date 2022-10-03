@@ -73,7 +73,7 @@ const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
       </button>
       <button
         class="hive-action hive-action__shuffle sb-touch-button"
-        @click="otherLetters = shuffle(otherLetters)"></button>
+        @click="otherLetters = shuffle(otherLetters, Math.random())"></button>
       <button
         class="hive-action hive-action__submit sb-touch-button"
         style="min-width: 5.5em"

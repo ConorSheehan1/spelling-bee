@@ -33,10 +33,23 @@ const gridify = ({
   });
 };
 
+const createRandomGenerator = ({ seed = 1 }: { seed?: number } = {}): Function => {
+  // https://stackoverflow.com/a/19303725/6305204
+  // produces random floats between 0 and 1.0
+  const random = (): number => {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  }
+  return random;
+}
+
+
+
 // https://stackoverflow.com/a/46545530/6305204
-const shuffle = (array: Array<any>) => {
+const shuffle = (array: Array<any>, seed: number = 1): Array<any> => {
+  const randomFloat = createRandomGenerator({ seed });
   return array
-    .map((value) => ({ value, sort: Math.random() }))
+  .map((value) => ({ value, sort: randomFloat() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 };
