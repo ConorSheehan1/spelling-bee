@@ -10,6 +10,7 @@
     "lint:prettier": "prettier --check .",
     "lintfix": "prettier --write --list-different .",
     "test": "vitest --run",
+    "createAllWords": "ts-node data/AllWords/createAllWords.ts",
     "createFiles": "ts-node data/createFiles.ts"
   },
   "prettier": {

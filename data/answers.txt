@@ -2846,6 +2846,8 @@ belying
 bemoan
 bemoaned
 bemoans
+bemuse
+bemused
 bemused
 bench
 benches
@@ -3333,8 +3335,11 @@ blitzed
 blitzes
 blitzing
 blizzard
+bloat
+bloated
 bloated
 bloater
+bloats
 blob
 blobs
 bloc
@@ -3347,8 +3352,10 @@ blokes
 blokish
 blond
 blonde
+blondeness
 blonder
 blondes
+blondness
 blonds
 blood
 bloodbath
@@ -3593,6 +3600,7 @@ bonds
 bone
 boned
 bonehead
+boneless
 bonemeal
 boner
 boners
@@ -3617,6 +3625,8 @@ bonnets
 bonnier
 bonniest
 bonny
+bonobo
+bonobos
 bonsai
 bonus
 bonuses
@@ -3625,6 +3635,8 @@ boob
 boobed
 boobies
 boobing
+booboo
+booboos
 boobs
 booby
 booed
@@ -4628,6 +4640,7 @@ caliper
 caliph
 caliphs
 call
+callable
 called
 caller
 callers
@@ -5945,6 +5958,7 @@ claws
 clay
 clayey
 clean
+cleanable
 cleaned
 cleaner
 cleaners
@@ -6275,6 +6289,8 @@ coddling
 code
 coded
 codeine
+coder
+coders
 codes
 codex
 codger
@@ -8057,9 +8073,6 @@ daftest
 daftness
 dagger
 daggers
-dago
-dagoes
-dagos
 dags
 dahlia
 dahlias
@@ -8320,6 +8333,10 @@ debit
 debited
 debiting
 debits
+debone
+deboned
+debones
+deboning
 debrief
 debriefed
 debriefs
@@ -8578,6 +8595,10 @@ deftest
 deftly
 deftness
 defunct
+defund
+defunded
+defunding
+defunds
 defuse
 defused
 defuses
@@ -8850,6 +8871,10 @@ derive
 derived
 derives
 deriving
+dermis
+derobe
+derobed
+derobes
 derrick
 derricks
 derv
@@ -11300,6 +11325,7 @@ epicure
 epicures
 epidemic
 epidemics
+epidermis
 epidermis
 epidermises
 epigram
@@ -14538,8 +14564,6 @@ golfer
 golfers
 golfing
 gollies
-golliwog
-golliwogs
 golly
 gonad
 gonads
@@ -17171,6 +17195,7 @@ infilling
 infills
 infinite
 infinitely
+infinities
 infinitive
 infinitives
 infinity
@@ -17545,6 +17570,7 @@ internecine
 interned
 internee
 internees
+internet
 interning
 internist
 internists
@@ -18333,8 +18359,6 @@ kidnaps
 kidney
 kidneys
 kids
-kike
-kikes
 kill
 killed
 killer
@@ -22113,8 +22137,6 @@ niffy
 niftier
 niftiest
 nifty
-nigger
-niggers
 niggle
 niggled
 niggles
@@ -22237,6 +22259,7 @@ nominee
 nominees
 nonagenarian
 nonalcoholic
+nonce
 nonchalance
 nonchalant
 noncombatant
@@ -22392,11 +22415,14 @@ nuke
 nuked
 nukes
 nuking
+null
+nulled
 nullified
 nullifies
 nullify
 nullifying
 nullity
+nulls
 numb
 numbed
 number
@@ -22709,6 +22735,7 @@ oldest
 oldie
 oldies
 oldish
+oldness
 oldster
 oleander
 olive
@@ -22875,6 +22902,8 @@ orbited
 orbiting
 orbits
 orbs
+orca
+orcas
 orchard
 orchards
 orchid
@@ -23654,6 +23683,8 @@ parry
 parrying
 parse
 parsed
+parser
+parsers
 parses
 parsing
 parsley
@@ -27028,6 +27059,8 @@ redecorated
 redeem
 redeemable
 redeemed
+redeemer
+redeemers
 redeeming
 redeems
 redefine
@@ -27075,8 +27108,6 @@ redresses
 redressing
 redrew
 reds
-redskin
-redskins
 reduce
 reduced
 reduces
@@ -27503,6 +27534,8 @@ rent
 rental
 rentals
 rented
+renter
+renters
 renting
 rents
 reopen
@@ -30128,6 +30161,8 @@ sherd
 sherds
 sheriff
 sheriffs
+sherpa
+sherpas
 sherries
 sherry
 shes
@@ -31992,7 +32027,6 @@ sphere
 spheres
 sphinx
 sphinxes
-spic
 spice
 spiced
 spices
@@ -32000,7 +32034,6 @@ spicier
 spiciest
 spiciness
 spicing
-spics
 spicy
 spider
 spiders
@@ -32293,10 +32326,8 @@ squats
 squatted
 squatter
 squatters
-squaw
 squawk
 squawks
-squaws
 squeak
 squeaked
 squeaks
@@ -36168,6 +36199,7 @@ unbutton
 unbuttoned
 unbuttoning
 unbuttons
+uncallable
 uncannier
 uncannily
 uncanny
@@ -36177,6 +36209,7 @@ unchecked
 uncivil
 uncle
 unclean
+uncleanable
 unclear
 uncles
 uncoil
@@ -36293,6 +36326,7 @@ unfeeling
 unfettered
 unfilled
 unfit
+unfitness
 unflagging
 unfold
 unfolded
@@ -37735,7 +37769,6 @@ westernises
 westerns
 westward
 westwards
-wetback
 wetland
 wetly
 wetness
@@ -37895,8 +37928,6 @@ whites
 whitest
 whitewash
 whitewashes
-whitey
-whiteys
 whither
 whiting
 whitings
@@ -38186,7 +38217,6 @@ woebegone
 woeful
 woefully
 woes
-wogs
 woke
 woken
 woks
@@ -38265,7 +38295,6 @@ woolly
 wooly
 woos
 woozy
-wops
 word
 worded
 wording

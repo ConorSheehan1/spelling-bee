@@ -1,5 +1,3 @@
-// AllWords from https://github.com/en-wl/wordlist/blob/master/alt12dicts/2of4brif.txt
-
 aah
 aardvark
 aardvarks
@@ -4390,7 +4388,10 @@ bemoan
 bemoaned
 bemoaning
 bemoans
+bemuse
 bemused
+bemused
+bemusing
 bench
 benches
 benchmark
@@ -5098,10 +5099,14 @@ blitzkrieg
 blitzkriegs
 blizzard
 blizzards
+bloat
+bloated
 bloated
 bloater
 bloaters
 bloating
+bloating
+bloats
 blob
 blobs
 bloc
@@ -5126,8 +5131,10 @@ blokes
 blokish
 blond
 blonde
+blondeness
 blonder
 blondes
+blondness
 blonds
 blood
 bloodbath
@@ -5465,6 +5472,7 @@ bone
 boned
 bonehead
 boneheads
+boneless
 bonemeal
 boner
 boners
@@ -5492,6 +5500,8 @@ bonnets
 bonnier
 bonniest
 bonny
+bonobo
+bonobos
 bonsai
 bonus
 bonuses
@@ -5501,6 +5511,8 @@ boob
 boobed
 boobies
 boobing
+booboo
+booboos
 boobs
 booby
 booed
@@ -6921,6 +6933,7 @@ caliphates
 caliphs
 calisthenics
 call
+callable
 called
 caller
 callers
@@ -9059,6 +9072,7 @@ claws
 clay
 clayey
 clean
+cleanable
 cleaned
 cleaner
 cleaners
@@ -9486,6 +9500,8 @@ coddling
 code
 coded
 codeine
+coder
+coders
 codes
 codex
 codger
@@ -12807,9 +12823,6 @@ daftness
 dag
 dagger
 daggers
-dago
-dagoes
-dagos
 dags
 dahlia
 dahlias
@@ -13112,6 +13125,10 @@ debited
 debiting
 debits
 debonair
+debone
+deboned
+debones
+deboning
 debrief
 debriefed
 debriefing
@@ -13557,6 +13574,10 @@ deftest
 deftly
 deftness
 defunct
+defund
+defunded
+defunding
+defunds
 defuse
 defused
 defuses
@@ -14135,6 +14156,11 @@ dermatitis
 dermatologist
 dermatologists
 dermatology
+dermis
+derobe
+derobed
+derobes
+derobing
 derogatory
 derrick
 derricks
@@ -18076,6 +18102,7 @@ epidemiological
 epidemiologist
 epidemiologists
 epidemiology
+epidermis
 epidermis
 epidermises
 epidural
@@ -23082,8 +23109,6 @@ golfer
 golfers
 golfing
 gollies
-golliwog
-golliwogs
 golly
 gonad
 gonads
@@ -27403,6 +27428,7 @@ infinite
 infinitely
 infinitesimal
 infinitesimally
+infinities
 infinitive
 infinitives
 infinity
@@ -28168,6 +28194,7 @@ internecine
 interned
 internee
 internees
+internet
 interning
 internist
 internists
@@ -29380,8 +29407,6 @@ kidnaps
 kidney
 kidneys
 kids
-kike
-kikes
 kill
 killed
 killer
@@ -35024,8 +35049,6 @@ niftier
 niftiest
 nifty
 niggardly
-nigger
-niggers
 niggle
 niggled
 niggles
@@ -35200,6 +35223,7 @@ nonagenarian
 nonagenarians
 nonalcoholic
 nonaligned
+nonce
 nonchalance
 nonchalant
 nonchalantly
@@ -35433,11 +35457,14 @@ nuke
 nuked
 nukes
 nuking
+null
+nulled
 nullified
 nullifies
 nullify
 nullifying
 nullity
+nulls
 numb
 numbed
 number
@@ -35929,6 +35956,7 @@ oldest
 oldie
 oldies
 oldish
+oldness
 oldster
 ole
 oleaginous
@@ -36170,6 +36198,8 @@ orbited
 orbiting
 orbits
 orbs
+orca
+orcas
 orchard
 orchards
 orchestra
@@ -37585,6 +37615,8 @@ parry
 parrying
 parse
 parsed
+parser
+parsers
 parses
 parsimonious
 parsimoniously
@@ -43300,6 +43332,8 @@ redecoration
 redeem
 redeemable
 redeemed
+redeemer
+redeemers
 redeeming
 redeems
 redefine
@@ -43377,8 +43411,6 @@ redresses
 redressing
 redrew
 reds
-redskin
-redskins
 reduce
 reduced
 reduces
@@ -44055,6 +44087,8 @@ rent
 rental
 rentals
 rented
+renter
+renters
 renting
 rents
 renunciation
@@ -47759,6 +47793,8 @@ sherd
 sherds
 sheriff
 sheriffs
+sherpa
+sherpas
 sherries
 sherry
 shes
@@ -50257,7 +50293,6 @@ sphincter
 sphincters
 sphinx
 sphinxes
-spic
 spice
 spiced
 spices
@@ -50265,7 +50300,6 @@ spicier
 spiciest
 spiciness
 spicing
-spics
 spicy
 spider
 spiders
@@ -50689,12 +50723,10 @@ squatted
 squatter
 squatters
 squatting
-squaw
 squawk
 squawked
 squawking
 squawks
-squaws
 squeak
 squeaked
 squeakier
@@ -56423,6 +56455,7 @@ unbutton
 unbuttoned
 unbuttoning
 unbuttons
+uncallable
 uncannier
 uncanniest
 uncannily
@@ -56452,6 +56485,7 @@ unclaimed
 unclassified
 uncle
 unclean
+uncleanable
 unclear
 uncles
 unclothed
@@ -56836,6 +56870,7 @@ unfettered
 unfilled
 unfinished
 unfit
+unfitness
 unflagging
 unflappable
 unflattering
@@ -59146,8 +59181,6 @@ westerns
 westward
 westwards
 wet
-wetback
-wetbacks
 wetland
 wetlands
 wetly
@@ -59356,8 +59389,6 @@ whitewash
 whitewashed
 whitewashes
 whitewashing
-whitey
-whiteys
 whither
 whiting
 whitings
@@ -59732,8 +59763,6 @@ woebegone
 woeful
 woefully
 woes
-wog
-wogs
 wok
 woke
 woken
@@ -59850,8 +59879,6 @@ woolly
 wooly
 woos
 woozy
-wop
-wops
 word
 worded
 wordiness

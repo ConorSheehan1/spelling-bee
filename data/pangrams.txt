@@ -1136,11 +1136,14 @@ blitzes
 blitzing
 blizzard
 bloated
+bloated
 bloater
 blocked
 blokish
+blondeness
 blonder
 blondes
+blondness
 bloodbath
 bloodhound
 bloodier
@@ -2950,6 +2953,7 @@ debilitated
 debilities
 debility
 debiting
+deboning
 debriefs
 debtors
 debugging
@@ -3045,6 +3049,7 @@ defroster
 defrosters
 defrosts
 defunct
+defunding
 defying
 degenerate
 degenerated
@@ -4038,6 +4043,7 @@ epicenter
 epicentre
 epicures
 epidemics
+epidermis
 epidermis
 epidermises
 epigram
@@ -9422,8 +9428,6 @@ redoubt
 redounds
 redrafts
 redressing
-redskin
-redskins
 redundant
 refectory
 referencing
@@ -12281,11 +12285,13 @@ unbuckle
 unburdens
 unbuttoned
 unbuttoning
+uncallable
 uncannier
 uncannily
 uncaring
 unchanging
 unchecked
+uncleanable
 unclear
 uncoiling
 uncoils
@@ -12354,6 +12360,7 @@ unfazed
 unfeeling
 unfettered
 unfilled
+unfitness
 unflagging
 unfolded
 unfolds
@@ -12846,7 +12853,6 @@ westernise
 westernises
 westward
 westwards
-wetback
 wetland
 whacked
 whalers
@@ -12902,7 +12908,6 @@ whitens
 whiteout
 whitewash
 whitewashes
-whiteys
 whitings
 whittled
 whittles
