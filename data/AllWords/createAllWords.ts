@@ -1,7 +1,7 @@
 // This script adds missing words and removes offensive words from the original wordlist
 // https://github.com/en-wl/wordlist/blob/master/alt12dicts/2of4brif.txt
 
-const { readFileSync, writeFileSync } = require("fs");
+import { readFileSync, writeFileSync }  from "fs";
 
 const fileToLowerCaseArray = (filePath: string): Array<any> => {
   const data = readFileSync(filePath);

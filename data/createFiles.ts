@@ -3,9 +3,9 @@
 // 2. Finds pangrams and writes them to pangrams.txt
 // 3. Creates unique puzzle starting points and writes them to various allAnswers$N.json
 
-const { readFileSync, writeFileSync } = require("fs");
-const cliProgress = require('cli-progress');
-const { shuffle } = require('../src/utils');
+import { readFileSync, writeFileSync }  from "fs";
+import cliProgress from "cli-progress";
+import { shuffle } from "../src/utils";
 
 // config
 const minNumAnswers = 20;
