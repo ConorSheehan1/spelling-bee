@@ -37,10 +37,10 @@ const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
       <svg
         class="hive-cell center"
         @click="userGuess += store.middleLetter"
-        viewBox="0 0 120 103.92304845413263">
+        viewBox="0 0 120 104">
         <polygon
           class="cell-fill"
-          points="0,51.96152422706631 30,0 90,0 120,51.96152422706631 90,103.92304845413263 30,103.92304845413263"
+          points="0,52 30,0 90,0 120,52 90,104 30,104"
           :stroke="store.getColor"
           stroke-width="7.5" />
         <text class="cell-letter" x="50%" y="50%" dy="10.75%">
@@ -52,10 +52,10 @@ const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
         :key="index"
         @click="userGuess += letter"
         class="hive-cell outer"
-        viewBox="0 0 120 103.92304845413263">
+        viewBox="0 0 120 104">
         <polygon
           class="cell-fill"
-          points="0,51.96152422706631 30,0 90,0 120,51.96152422706631 90,103.92304845413263 30,103.92304845413263"
+          points="0,52 30,0 90,0 120,52 90,104 30,104"
           :stroke="store.getColor"
           stroke-width="7.5" />
         <text class="cell-letter" x="50%" y="50%" dy="10.75%">
