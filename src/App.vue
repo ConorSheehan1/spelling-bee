@@ -226,6 +226,11 @@ h2 span {
   }
 }
 
+// pangram highlight used in multiple components
+.pangram {
+  font-weight: bold;
+}
+
 .toast-message {
   max-width: 80%;
   margin: 0, 1em;
@@ -234,6 +239,9 @@ h2 span {
 
 html.dark {
   header strong {
+    color: $bl-yellow;
+  }
+  .pangram {
     color: $bl-yellow;
   }
 }

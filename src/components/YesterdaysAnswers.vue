@@ -18,7 +18,7 @@ const gridData = computed(() =>
       {{ letter }}
     </span>
   </strong>
-  <el-table :data="gridData">
+  <el-table :data="gridData" :cell-class-name="store.cellClassName">
     <el-table-column property="1" label="" />
     <el-table-column property="2" label="" />
     <el-table-column property="3" label="" />

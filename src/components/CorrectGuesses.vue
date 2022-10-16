@@ -14,25 +14,18 @@ const { t } = useI18n({
 });
 
 const store = useMainStore();
+// showWords el-collapse has 2 elems when expanded, 1 when collapsed.
 const showWords = ref([false]);
 const numCorrectMessage = computed(() => {
   return t("foundWords", store.correctGuesses.length);
 });
-const collapseTitle = computed(() => {
-  // showWords el-collapse has 2 elems when expanded, 1 when collapsed.
+
+const lastFiveGuesses = computed(() => {
   const numGuessesToShow = Math.min(store.correctGuesses.length, 5);
-  const lastFiveGuesses = store.correctGuesses
-    .reverse()
-    .slice(0, numGuessesToShow);
-  const guessEllipses = lastFiveGuesses.length === 5 ? "..." : "";
-  const title =
-    showWords.value.length == 2
-      ? numCorrectMessage.value
-      : `${lastFiveGuesses.join(", ")}${guessEllipses}`;
-  return title.length ? title : `${t("Your words")}...`;
+  return store.correctGuesses.reverse().slice(0, numGuessesToShow);
 });
 
-// alphabetical when expanded, in order found when collapsed (in collapseTitle)
+// alphabetical when expanded, in order found when collapsed.
 const gridData = computed(
   () => gridify({ arr: Array.from(store.correctGuesses).sort(), size: 3 })
   // gridify({ arr: Array.from(Array(100).keys()), size: 3 })
@@ -43,8 +36,28 @@ const gridData = computed(
   <el-collapse
     v-model="showWords"
     @change="showWords.length == 2 ? $emit('open') : $emit('close')">
-    <el-collapse-item :title="collapseTitle">
-      <el-table :data="gridData" class="correct-guesses-table">
+    <el-collapse-item>
+      <template #title>
+        <template v-if="showWords.length === 2">
+          {{ numCorrectMessage }}
+        </template>
+        <template v-else-if="lastFiveGuesses.length === 0">
+          {{ t("Your words") }}...
+        </template>
+        <template v-else>
+          <span
+            v-for="(guess, index) in lastFiveGuesses"
+            :key="guess"
+            :class="store.cellClassName({ row: [guess], columnIndex: -1 })">
+            {{ guess }}{{ index === lastFiveGuesses.length - 1 ? "" : ", " }}
+          </span>
+          <span v-if="lastFiveGuesses.length === 5"> ... </span>
+        </template>
+      </template>
+      <el-table
+        :data="gridData"
+        class="correct-guesses-table"
+        :cell-class-name="store.cellClassName">
         <el-table-column property="1" label="" />
         <el-table-column property="2" label="" />
         <el-table-column property="3" label="" />
