@@ -14,6 +14,7 @@ const { t } = useI18n({
 });
 
 const store = useMainStore();
+// showWords el-collapse has 2 elems when expanded, 1 when collapsed.
 const showWords = ref([false]);
 const numCorrectMessage = computed(() => {
   return t("foundWords", store.correctGuesses.length);
@@ -24,7 +25,7 @@ const lastFiveGuesses = computed(() => {
   return store.correctGuesses.reverse().slice(0, numGuessesToShow);
 });
 
-// alphabetical when expanded, in order found when collapsed (in collapseTitle)
+// alphabetical when expanded, in order found when collapsed.
 const gridData = computed(
   () => gridify({ arr: Array.from(store.correctGuesses).sort(), size: 3 })
   // gridify({ arr: Array.from(Array(100).keys()), size: 3 })
