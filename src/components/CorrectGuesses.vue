@@ -38,20 +38,6 @@ const gridData = computed(
   // gridify({ arr: Array.from(Array(100).keys()), size: 3 })
 );
 
-const cellStyle = ({ row, columnIndex }: { row: Object, columnIndex: Number }) => {
-  const word = row[columnIndex + 1];
-  if (word && store.isPangram({ word })) {
-    // can't use bl-yellow directly here, need to pass as string
-    return { 'font-weight': 'bold', color: '#fce303', class: 'pangram' };
-  }
-}
-
-const cellClassName = ({ row, columnIndex }: { row: Object, columnIndex: Number }) => {
-  const word = row[columnIndex + 1];
-  if (word && store.isPangram({ word })) {
-    return 'pangram';
-  }
-}
 </script>
 
 <template>
@@ -59,7 +45,7 @@ const cellClassName = ({ row, columnIndex }: { row: Object, columnIndex: Number 
     v-model="showWords"
     @change="showWords.length == 2 ? $emit('open') : $emit('close')">
     <el-collapse-item :title="collapseTitle">
-      <el-table :data="gridData" class="correct-guesses-table" :cell-class-name="cellClassName">
+      <el-table :data="gridData" class="correct-guesses-table" :cell-class-name="store.cellClassName">
         <el-table-column property="1" label="" />
         <el-table-column property="2" label="" />
         <el-table-column property="3" label="" />

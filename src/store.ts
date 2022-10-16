@@ -203,8 +203,9 @@ export const useMainStore = defineStore({
       if (this.isPangram({ word })) return word.length + 7;
       return word.length;
     },
+    // If word has 7 unique letters, assume pangram. Handles case where it is a pangram from yesterday.
     isPangram({ word }: { word: string }): boolean {
-      return this.availableLetters.split("").every((l) => word.includes(l));
+      return new Set(word).size === 7;
     },
     // points per word, score is total of points.
     generatePointsMessage({
@@ -217,5 +218,11 @@ export const useMainStore = defineStore({
       const message = this.pointsMessages[points] || "awesome";
       return `${$t(`points.${message}`)}! +${points}`;
     },
+    cellClassName({ row, columnIndex }: { row: any, columnIndex: number }) {
+      const word = row[columnIndex + 1];
+      if (word && this.isPangram({ word })) {
+        return 'pangram';
+      }
+    }
   },
 });
