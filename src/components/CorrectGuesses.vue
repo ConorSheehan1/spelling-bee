@@ -69,11 +69,6 @@ const gridData = computed(
 <style scoped lang="scss">
 @import "../assets/styles/_variables";
 
-.pangram div.cell {
-  font-weight: bold;
-  text-shadow: 0 0 10px $bl-yellow;
-}
-
 .correct-guesses-table {
   min-height: 50vh;
 }
