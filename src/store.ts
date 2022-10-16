@@ -218,11 +218,11 @@ export const useMainStore = defineStore({
       const message = this.pointsMessages[points] || "awesome";
       return `${$t(`points.${message}`)}! +${points}`;
     },
-    cellClassName({ row, columnIndex }: { row: any, columnIndex: number }) {
+    cellClassName({ row, columnIndex }: { row: any; columnIndex: number }) {
       const word = row[columnIndex + 1];
       if (word && this.isPangram({ word })) {
-        return 'pangram';
+        return "pangram";
       }
-    }
+    },
   },
 });

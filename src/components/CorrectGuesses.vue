@@ -21,17 +21,14 @@ const numCorrectMessage = computed(() => {
 
 const lastFiveGuesses = computed(() => {
   const numGuessesToShow = Math.min(store.correctGuesses.length, 5);
-  return store.correctGuesses
-    .reverse()
-    .slice(0, numGuessesToShow);
-})
+  return store.correctGuesses.reverse().slice(0, numGuessesToShow);
+});
 
 // alphabetical when expanded, in order found when collapsed (in collapseTitle)
 const gridData = computed(
   () => gridify({ arr: Array.from(store.correctGuesses).sort(), size: 3 })
   // gridify({ arr: Array.from(Array(100).keys()), size: 3 })
 );
-
 </script>
 
 <template>
@@ -47,15 +44,19 @@ const gridData = computed(
           {{ t("Your words") }}...
         </template>
         <template v-else>
-          <span v-for="(guess, index) in lastFiveGuesses" :key="guess" :class="store.cellClassName({ row: [guess], columnIndex: -1 })">
-            {{ guess }}{{ index === lastFiveGuesses.length - 1 ? '' : ', ' }}
+          <span
+            v-for="(guess, index) in lastFiveGuesses"
+            :key="guess"
+            :class="store.cellClassName({ row: [guess], columnIndex: -1 })">
+            {{ guess }}{{ index === lastFiveGuesses.length - 1 ? "" : ", " }}
           </span>
-          <span v-if="lastFiveGuesses.length === 5">
-            ...
-          </span>
+          <span v-if="lastFiveGuesses.length === 5"> ... </span>
         </template>
       </template>
-      <el-table :data="gridData" class="correct-guesses-table" :cell-class-name="store.cellClassName">
+      <el-table
+        :data="gridData"
+        class="correct-guesses-table"
+        :cell-class-name="store.cellClassName">
         <el-table-column property="1" label="" />
         <el-table-column property="2" label="" />
         <el-table-column property="3" label="" />
