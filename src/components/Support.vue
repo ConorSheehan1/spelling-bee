@@ -1,5 +1,5 @@
 <template>
-  <span>If you're enjoying the game you can your show support by</span>
+  <span>If you're enjoying the game you can show your support by</span>
   <ul>
     <li>
       Starring the project on
