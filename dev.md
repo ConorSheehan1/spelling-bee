@@ -53,3 +53,11 @@ yarn version --new-version <version>
 # bump minor version
 yarn version --minor
 ```
+
+## Page stats
+
+Page counting at https://spelling-b.goatcounter.com/
+
+- https://www.goatcounter.com/help/gdpr
+  - github alt: https://github.com/arp242/goatcounter/blob/c8c50d8720862e605049c3492fd7b4f285de6e98/tpl/help/gdpr.markdown
+- https://github.com/arp242/goatcounter/blob/c8c50d8720862e605049c3492fd7b4f285de6e98/tpl/help/consent.markdown
