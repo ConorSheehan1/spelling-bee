@@ -12,6 +12,7 @@ export const useMainStore = defineStore({
   id: "main",
   state: () => ({
     // todays puzzle
+    // correctGuesses as array caused infinite update issue when game was open in multiple tabs. see #6
     correctGuesses: useStorage("correctGuesses", new Set([]) as Set<string>),
     answers: useStorage("answers", [] as Array<string>),
     availableLetters: useStorage("availableLetters", "" as string),
@@ -83,10 +84,13 @@ export const useMainStore = defineStore({
       return progressPercentages[this.getProgressIndex];
     },
     getUserScore(): number {
-      return this.getCorrectGuesses.reduce((acc: number, word: string): number => {
-        // @ts-ignore issue with this ref? says .calculatePoints is undefined here but not outside arrow funcs
-        return acc + this.calculatePoints({ word });
-      }, 0);
+      return this.getCorrectGuesses.reduce(
+        (acc: number, word: string): number => {
+          // @ts-ignore issue with this ref? says .calculatePoints is undefined here but not outside arrow funcs
+          return acc + this.calculatePoints({ word });
+        },
+        0
+      );
     },
     getColor(): string {
       return this.theme === "light" ? "white" : "#1c1b22";
