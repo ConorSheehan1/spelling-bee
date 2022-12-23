@@ -3,9 +3,9 @@
 // 2. Finds pangrams and writes them to pangrams.txt
 // 3. Creates unique puzzle starting points and writes them to various allAnswers$N.json
 
-import { readFileSync, writeFileSync }  from "fs";
+import { existsSync, readFileSync, writeFileSync }  from "fs";
 import cliProgress from "cli-progress";
-import { shuffle } from "../src/utils";
+import { generateAnswerObjs, shuffle } from "../src/utils";
 
 // config
 const minNumAnswers = 20;
@@ -13,6 +13,16 @@ const writeSupplementaryFiles = true;
 // 10 years worth of puzzles per file. avoid slow loading page and need for git-lfs with all puzzles in one file.
 // need to update to use allAnswers2 10 years from now. see you in the future o_0
 const numPuzzlesPerFile = 3650;
+
+// validation (ensure today and yesterday's answers don't change)
+if (existsSync(answerFile)) {
+  // call generateAnswerObjs now
+  // call again at end of script
+  // if values have changed, show warning
+} else {
+  console.log(`could not find ${answerFile}, skipping validation...`)
+}
+
 
 const data = readFileSync("./data/AllWords.txt");
 const words = data

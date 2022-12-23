@@ -1,3 +1,6 @@
+import { differenceInDays } from "date-fns";
+import { Answer } from "./models/answer";
+
 // generic js functions
 // https://levelup.gitconnected.com/lodash-methods-that-can-be-easily-implemented-in-plain-javascript-bbe22509827e
 const chunk = ({
@@ -73,4 +76,31 @@ const incrementDups = (arr: Array<number>): Array<number> => {
   });
 };
 
-export { chunk, gridify, incrementDups, shuffle, zip };
+// year game started, not released until mid-year so no issue using as epoch
+const epoch = new Date("2022-01-01");
+
+const generateAnswerObjs = ({
+  allAnswers,
+  gameDate,
+}: {
+  allAnswers: Array<Answer>;
+  gameDate: Date;
+}): { todaysAnswerObj: Answer; yesterdaysAnswerObj: Answer } => {
+  // use days since arbitrary epoch to ensure yesterdays answers is always 1 behind todays.
+  const daysSinceEpoch = differenceInDays(gameDate, epoch);
+  // pick next puzzle input, % len puzzles to restart if out of index (circular)
+  const todaysAnswerObj = allAnswers[daysSinceEpoch % allAnswers.length];
+  const yesterdaysAnswerObj =
+    allAnswers[(daysSinceEpoch - 1) % allAnswers.length];
+  return { todaysAnswerObj, yesterdaysAnswerObj };
+};
+
+export {
+  chunk,
+  epoch,
+  generateAnswerObjs,
+  gridify,
+  incrementDups,
+  shuffle,
+  zip,
+};

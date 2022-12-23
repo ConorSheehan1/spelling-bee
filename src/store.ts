@@ -3,10 +3,8 @@ import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
 import { differenceInDays, isSameDay } from "date-fns";
-import { incrementDups } from "./utils";
+import { epoch, generateAnswerObjs, incrementDups } from "./utils";
 import { Answer } from "./models/answer";
-
-const epoch = new Date("2022-01-01");
 
 export const useMainStore = defineStore({
   id: "main",
@@ -162,13 +160,11 @@ export const useMainStore = defineStore({
       this.gameDate = now;
       // new game so reset guesses
       this.correctGuesses = new Set([]);
-      // use days since arbitrary epoch to ensure yesterdays answers is always 1 behind todays.
-      const daysSinceEpoch = differenceInDays(this.gameDate, epoch);
-      // pick next puzzle input, % len puzzles to restart if out of index (circular)
-      const todaysAnswerObj = allAnswers[daysSinceEpoch % allAnswers.length];
-      const yesterdaysAnswerObj =
-        allAnswers[(daysSinceEpoch - 1) % allAnswers.length];
 
+      const { todaysAnswerObj, yesterdaysAnswerObj } = generateAnswerObjs({
+        allAnswers,
+        gameDate: this.gameDate,
+      });
       this.setYesterdaysAnswersAndLastGameDate({ yesterdaysAnswerObj });
 
       // set yesterday and todays answers and letters
