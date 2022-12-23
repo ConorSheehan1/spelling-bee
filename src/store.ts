@@ -12,7 +12,7 @@ export const useMainStore = defineStore({
   id: "main",
   state: () => ({
     // todays puzzle
-    correctGuesses: useStorage("correctGuesses", [] as Array<string>),
+    correctGuesses: useStorage("correctGuesses", new Set([]) as Set<string>),
     answers: useStorage("answers", [] as Array<string>),
     availableLetters: useStorage("availableLetters", "" as string),
     middleLetter: useStorage("middleLetter", "" as string),
@@ -79,7 +79,7 @@ export const useMainStore = defineStore({
       return progressPercentages[this.getProgressIndex];
     },
     getUserScore(): number {
-      return this.correctGuesses.reduce((acc: number, word: string): number => {
+      return [...this.correctGuesses].reduce((acc: number, word: string): number => {
         // @ts-ignore issue with this ref? says .calculatePoints is undefined here but not outside arrow funcs
         return acc + this.calculatePoints({ word });
       }, 0);
@@ -125,13 +125,13 @@ export const useMainStore = defineStore({
           message: $t("not in word list"),
         });
       }
-      if (this.correctGuesses.includes(guess)) {
+      if (this.correctGuesses.has(guess)) {
         return this.showMessage({
           message: $t("already found"),
         });
       }
 
-      this.correctGuesses.push(guess);
+      this.correctGuesses.add(guess);
       const points = this.calculatePoints({ word: guess });
       if (this.isPangram({ word: guess })) {
         this.showMessage({
@@ -153,7 +153,7 @@ export const useMainStore = defineStore({
       // set gameDate to clear guesses tomorrow
       this.gameDate = now;
       // new game so reset guesses
-      this.correctGuesses = [];
+      this.correctGuesses = new Set([]);
       // use days since arbitrary epoch to ensure yesterdays answers is always 1 behind todays.
       const daysSinceEpoch = differenceInDays(this.gameDate, epoch);
       // pick next puzzle input, % len puzzles to restart if out of index (circular)
