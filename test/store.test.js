@@ -77,7 +77,7 @@ describe("Store", () => {
       describe("when gameDate is a date", () => {
         it("should get todays and yesterdays answers correctly", () => {
           store.startGame({ allAnswers });
-          expect(store.correctGuesses).toEqual([]);
+          expect(store.correctGuesses).toEqual(new Set([]));
           expect(store.answers).toEqual(["felt", "feat", "feet"]);
           expect(store.availableLetters).toEqual("aeflrst");
           expect(store.middleLetter).toEqual("l");
@@ -90,7 +90,7 @@ describe("Store", () => {
         it("should get todays and yesterdays answers correctly", () => {
           store.gameDate = gameDateString;
           store.startGame({ allAnswers });
-          expect(store.correctGuesses).toEqual([]);
+          expect(store.correctGuesses).toEqual(new Set([]));
           expect(store.answers).toEqual(["felt", "feat", "feet"]);
           expect(store.availableLetters).toEqual("aeflrst");
           expect(store.middleLetter).toEqual("l");
@@ -116,7 +116,7 @@ describe("Store", () => {
         store.middleLetter = "e";
         store.availableLetters = "acehstu";
         store.startGame({ allAnswers });
-        expect(store.correctGuesses).toEqual([]);
+        expect(store.correctGuesses).toEqual(new Set([]));
         expect(store.answers).toEqual(["error", "ooze", "otter"]);
         expect(store.availableLetters).toEqual("eioprtz");
         expect(store.middleLetter).toEqual("o");
@@ -141,7 +141,7 @@ describe("Store", () => {
         store.middleLetter = "e";
         store.availableLetters = "acehstu";
         store.startGame({ allAnswers });
-        expect(store.correctGuesses).toEqual([]);
+        expect(store.correctGuesses).toEqual(new Set([]));
         expect(store.answers).toEqual(["error", "ooze", "otter"]);
         expect(store.availableLetters).toEqual("eioprtz");
         expect(store.middleLetter).toEqual("o");
@@ -163,21 +163,21 @@ describe("Store", () => {
       describe("when gameDate is a date", () => {
         it("should exit early without setting up a new game", () => {
           store.gameDate = gameDate;
-          store.correctGuesses = ["test"];
+          store.correctGuesses = new Set(["test"]);
           // should exit early
           expect(store.startGame({ allAnswers })).toEqual(false);
           // answers should not be reset to []
-          expect(store.correctGuesses).toEqual(["test"]);
+          expect(store.correctGuesses).toEqual(new Set(["test"]));
         });
       });
       describe("when gameDate is a string", () => {
         it("should exit early without setting up a new game", () => {
           store.gameDate = gameDateString;
-          store.correctGuesses = ["test"];
+          store.correctGuesses = new Set(["test"]);
           // should exit early
           expect(store.startGame({ allAnswers })).toEqual(false);
           // answers should not be reset to []
-          expect(store.correctGuesses).toEqual(["test"]);
+          expect(store.correctGuesses).toEqual(new Set(["test"]));
         });
       });
     });
