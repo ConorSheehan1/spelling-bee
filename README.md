@@ -21,6 +21,7 @@ https://spelling-b.netlify.app
 - Using [12 dicts](http://wordlist.aspell.net/12dicts/) word list https://github.com/en-wl/wordlist/blob/master/alt12dicts/2of4brif.txt
 - Using fireworks.scss https://codepen.io/hmaw/pen/qBEMLxV
 - Using Element Plus UI https://github.com/element-plus/element-plus
+- Favicon created using http://faviconer.com
 
 ## Development
 

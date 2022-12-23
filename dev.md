@@ -54,6 +54,11 @@ yarn version --new-version <version>
 yarn version --minor
 ```
 
+## Favicon
+
+Favicons created with http://faviconer.com
+http://faviconer.com/user/17914
+
 ## Page stats
 
 Page counting at https://spelling-b.goatcounter.com/
