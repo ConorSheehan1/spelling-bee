@@ -69,6 +69,10 @@ export const useMainStore = defineStore({
       // ensure the first level is 0.
       return uniqueLevels.map((l: number) => l - minUniqueLevel);
     },
+    // as getter so result can be cached
+    getCorrectGuesses(): Array<string> {
+      return Array.from(this.correctGuesses);
+    },
     getProgressIndex(): number {
       return (
         this.getScoreLevels.filter((v) => v <= this.getUserScore).length - 1
@@ -79,7 +83,7 @@ export const useMainStore = defineStore({
       return progressPercentages[this.getProgressIndex];
     },
     getUserScore(): number {
-      return [...this.correctGuesses].reduce((acc: number, word: string): number => {
+      return this.getCorrectGuesses.reduce((acc: number, word: string): number => {
         // @ts-ignore issue with this ref? says .calculatePoints is undefined here but not outside arrow funcs
         return acc + this.calculatePoints({ word });
       }, 0);

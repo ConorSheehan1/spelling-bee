@@ -17,17 +17,17 @@ const store = useMainStore();
 // showWords el-collapse has 2 elems when expanded, 1 when collapsed.
 const showWords = ref([false]);
 const numCorrectMessage = computed(() => {
-  return t("foundWords", [...store.correctGuesses].length);
+  return t("foundWords", store.getCorrectGuesses.length);
 });
 
 const lastFiveGuesses = computed(() => {
-  const numGuessesToShow = Math.min([...store.correctGuesses].length, 5);
-  return [...store.correctGuesses].reverse().slice(0, numGuessesToShow);
+  const numGuessesToShow = Math.min(store.getCorrectGuesses.length, 5);
+  return store.getCorrectGuesses.reverse().slice(0, numGuessesToShow);
 });
 
 // alphabetical when expanded, in order found when collapsed.
 const gridData = computed(
-  () => gridify({ arr: Array.from([...store.correctGuesses]).sort(), size: 3 })
+  () => gridify({ arr: Array.from(store.getCorrectGuesses).sort(), size: 3 })
   // gridify({ arr: Array.from(Array(100).keys()), size: 3 })
 );
 </script>
