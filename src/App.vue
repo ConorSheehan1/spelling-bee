@@ -246,6 +246,12 @@ html.dark {
   }
 }
 
+@media only screen and (max-height: 500px) {
+  .toast-message {
+    margin-top: 50px;
+  }
+}
+
 @media only screen and (max-width: 700px) {
   #app {
     margin-top: 10px;
