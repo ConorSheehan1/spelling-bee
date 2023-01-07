@@ -213,6 +213,21 @@ html.dark {
   }
 }
 
+@media only screen and (max-height: 650px) {
+  .sb-controls {
+    top: max(65%, 420px);
+  }
+  .hive-cell {
+    top: 30%;
+    left: 33%;
+    width: 33%;
+    height: 28%;
+  }
+  .hive-actions {
+    margin-top: 0;
+  }
+}
+
 @media (orientation: landscape) {
   .sb-controls {
     top: max(65%, 500px);
