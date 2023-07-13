@@ -7,7 +7,10 @@ import Support from "./Support.vue";
   <Support />
   <span
     >If you liked this game, you might like the Irish version:
-    <el-link type="primary" href="https://beacha.ie" target="_blank">
+    <el-link
+      type="primary"
+      href="https://beach-litriochta.netlify.app"
+      target="_blank">
       beacha litríochta
     </el-link>
   </span>
