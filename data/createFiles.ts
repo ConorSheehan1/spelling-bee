@@ -3,9 +3,12 @@
 // 2. Finds pangrams and writes them to pangrams.txt
 // 3. Creates unique puzzle starting points and writes them to various allAnswers$N.json
 
-import { existsSync, readFileSync, writeFileSync }  from "fs";
+import { readFileSync, writeFileSync }  from "fs";
 import cliProgress from "cli-progress";
+import readlineSync from "readline-sync";
 import { generateAnswerObjs, shuffle } from "../src/utils";
+// script will fail if allAnswers.json does not already exist. can just create empty file if running for first time.
+import currentAnswers from "./allAnswers.json";
 
 // config
 const minNumAnswers = 20;
@@ -14,15 +17,19 @@ const writeSupplementaryFiles = true;
 // need to update to use allAnswers2 10 years from now. see you in the future o_0
 const numPuzzlesPerFile = 3650;
 
-// validation (ensure today and yesterday's answers don't change)
-if (existsSync(answerFile)) {
-  // call generateAnswerObjs now
-  // call again at end of script
-  // if values have changed, show warning
-} else {
-  console.log(`could not find ${answerFile}, skipping validation...`)
-}
+// TODO: dynamic import in app.vue and here, use variable to ensure script and app use same data
+const answerFile = "allAnswers.json" // match App.vue
+const gameDate = new Date();
+const currentAnswerObj = generateAnswerObjs({ allAnswers: currentAnswers, gameDate });
 
+// // validation (ensure today and yesterday's answers don't change)
+// import(`./${answerFile}`).then(currentAnswers => {
+//   // call generateAnswerObjs now, and again at end of script. if values have changed, show warning
+//   currentAnswerObj = generateAnswerObjs({ allAnswers: currentAnswers, gameDate });
+// }).catch(err => {
+//   console.log(`could not find ./${answerFile}, skipping validation...`)
+//   console.log(`Error: ${err}`)
+// });
 
 const data = readFileSync("./data/AllWords.txt");
 const words = data
@@ -49,7 +56,6 @@ const uniqueLetterCombinations = pangrams.reduce((acc: Set<string>, pangram: str
   acc.add(Array.from(uniqueLetters).join(""));
   return acc;
 }, new Set());
-const numPangrams = pangrams.length;
 const numUniqueLetterCombinations = uniqueLetterCombinations.size;
 const uniqueLetterCombinationsShuffled = shuffle(Array.from(uniqueLetterCombinations))
 
@@ -78,8 +84,26 @@ for (let offset = 0; offset < 7; offset++) {
     // }
     if (numProcessed % numPuzzlesPerFile === 0) {
       let fileNum = numProcessed / numPuzzlesPerFile;
+
+      // validation today and yesterdays puzzle hasn't changed
+      const fileName = `./data/allAnswers${fileNum === 1 ? '' : fileNum}.json`;
+      if (fileName.endsWith(answerFile)) {
+        console.log(`\nChecking file currently in use by the game: ${fileName}`);
+        const newCurrentAnswerObj = generateAnswerObjs({ allAnswers, gameDate });
+        const jsonNewCurrentAnswerObj = JSON.stringify(newCurrentAnswerObj);
+        const jsonCurrentAnswerObj = JSON.stringify(currentAnswerObj);
+        if (jsonNewCurrentAnswerObj !== jsonCurrentAnswerObj) {
+          console.log(`jsonCurrentAnswerObj: ${jsonCurrentAnswerObj.substring(0, 100)} ...\njsonNewCurrentAnswerObj: ${jsonNewCurrentAnswerObj.substring(0, 100)} ...`)
+          if (!readlineSync.keyInYN("Today's and yesterday's puzzles have changed. Continue?")) {
+            process.exit();
+          }
+        } else {
+          console.log(`Checks passed. Today's and yesterday's puzzles have not changed.`);
+        }
+      }
+
       writeFileSync(
-        `./data/allAnswers${fileNum === 1 ? '' : fileNum}.json`,
+        fileName,
         `${JSON.stringify(allAnswers, null, 2)}`
       );
       allAnswers = [];
@@ -88,5 +112,7 @@ for (let offset = 0; offset < 7; offset++) {
 }
 
 createPuzzleBar.stop();
+console.log(`Processed ${numProcessed} puzzles, and ${Math.floor(numProcessed / numPuzzlesPerFile)} files.`)
+console.log(`${Math.floor(numProcessed / 365)} years of puzzles.`)
 // 52493 puzzle combinations
 // 52493 / 365 = 143 years worth of games
