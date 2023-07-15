@@ -28,7 +28,7 @@ let userGuess = ref("");
 const onKeyPress = (e: KeyboardEvent) => {
   const key = e.key.toLowerCase();
   if (key === "enter") return submitGuess({ $t: t, guess: userGuess.value });
-  if (key === "backspace") {
+  if (["backspace", "delete"].includes(key)) {
     userGuess.value = userGuess.value.slice(0, -1);
     return false;
   }
