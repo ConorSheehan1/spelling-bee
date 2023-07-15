@@ -2,6 +2,7 @@
 // 1. Filters out any invalid words (len < 4, unique letters > 7) and writes them to answers.txt
 // 2. Finds pangrams and writes them to pangrams.txt
 // 3. Creates unique puzzle starting points and writes them to various allAnswers$N.json
+// 4. It will also check if today's and yesterday's puzzles have changed. If they have, it provides the option to quit the script.
 
 import { readFileSync, writeFileSync }  from "fs";
 import cliProgress from "cli-progress";
@@ -21,15 +22,6 @@ const numPuzzlesPerFile = 3650;
 const answerFile = "allAnswers.json" // match App.vue
 const gameDate = new Date();
 const currentAnswerObj = generateAnswerObjs({ allAnswers: currentAnswers, gameDate });
-
-// // validation (ensure today and yesterday's answers don't change)
-// import(`./${answerFile}`).then(currentAnswers => {
-//   // call generateAnswerObjs now, and again at end of script. if values have changed, show warning
-//   currentAnswerObj = generateAnswerObjs({ allAnswers: currentAnswers, gameDate });
-// }).catch(err => {
-//   console.log(`could not find ./${answerFile}, skipping validation...`)
-//   console.log(`Error: ${err}`)
-// });
 
 const data = readFileSync("./data/AllWords.txt");
 const words = data
