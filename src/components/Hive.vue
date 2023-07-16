@@ -1,7 +1,16 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useMainStore } from "../store";
 import { shuffle } from "../utils";
+import { useI18n } from "vue-i18n";
+import en from "../locales/en.json";
+
+const { t } = useI18n({
+  inheritLocale: true,
+  messages: {
+    en,
+  },
+});
 
 // `defineProps` is a compiler macro and no longer needs to be imported.
 defineProps({
@@ -16,10 +25,31 @@ const otherLetters = ref(
 );
 let userGuess = ref("");
 
+const onKeyPress = (e: KeyboardEvent) => {
+  const pressedKey = e.key.toLowerCase();
+  if (pressedKey === "enter")
+    return submitGuess({ $t: t, guess: userGuess.value });
+  if (["backspace", "delete"].includes(pressedKey)) {
+    userGuess.value = userGuess.value.slice(0, -1);
+    return false;
+  }
+  if (pressedKey.length === 1 && store.availableLetters.includes(pressedKey)) {
+    userGuess.value += pressedKey;
+    return true;
+  }
+};
+
 const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
   userGuess.value = "";
   store.submitGuess({ $t, guess });
 };
+
+onMounted(() => {
+  window.addEventListener("keyup", onKeyPress);
+});
+onUnmounted(() => {
+  window.removeEventListener("keyup", onKeyPress);
+});
 </script>
 
 <template>
