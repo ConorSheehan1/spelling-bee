@@ -24,4 +24,4 @@ jobs:
           install_command: yarn install
           build_command: yarn build
           build_directory: dist
-          node_version: 14.18.2
+          node_version: 16
