@@ -85,7 +85,8 @@ for (let offset = 0; offset < 7; offset++) {
         const jsonNewCurrentAnswerObj = JSON.stringify(newCurrentAnswerObj);
         const jsonCurrentAnswerObj = JSON.stringify(currentAnswerObj);
         if (jsonNewCurrentAnswerObj !== jsonCurrentAnswerObj) {
-          console.log(`jsonCurrentAnswerObj: ${jsonCurrentAnswerObj.substring(0, 100)} ...\njsonNewCurrentAnswerObj: ${jsonNewCurrentAnswerObj.substring(0, 100)} ...`)
+          console.log(`jsonCurrentAnswerObj: ${jsonCurrentAnswerObj.substring(0, 100)} ...`);
+          console.log(`jsonNewCurrentAnswerObj: ${jsonNewCurrentAnswerObj.substring(0, 100)} ...`);
           if (!readlineSync.keyInYN("Today's and yesterday's puzzles have changed. Continue?")) {
             process.exit();
           }
