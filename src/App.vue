@@ -17,9 +17,13 @@ const zindex = ref(0);
 const gameWonModalShown = ref(false); // only show gameWon modal once
 let timer: any;
 
-const darkmode = ref(store.theme === "dark");
+const fullName = ref("");
+const email = ref("");
 
+const darkmode = ref(store.theme === "dark");
+const popupModalShown = ref(!localStorage.getItem("full_name") || !localStorage.getItem("email"));
 const onToggleDarkMode = () => {
+  popupModalShown.value = !localStorage.getItem("full_name") || !localStorage.getItem("email");
   if (darkmode.value === true) {
     store.theme = "dark";
     document.documentElement.classList.add("dark");
@@ -53,14 +57,40 @@ store.startGame({ allAnswers });
 // TODO: add shake animation on incorrect submission?
 // https://www.reddit.com/r/webdev/comments/su6y4r/what_animations_are_used_in_wordle/
 // need setTimeout to wait for animation before removing guess
+
+const submitForm = () => {
+  if (fullName.value.trim() !== "" && email.value.trim() !== "") {
+    console.log("Full Name:", fullName.value);
+    localStorage.setItem("full_name", fullName.value)
+    console.log("Email:", email.value);
+    localStorage.setItem("email", email.value)
+    showInfo.value = true
+    popupModalShown.value = false; // Only close the modal if both fields are filled
+  } else {
+    // You can show a notification or a message to inform the user to fill out both fields
+    console.warn("Both fields are required!");
+  }
+};
 </script>
 
 <template>
-  <el-dialog
-    v-model="showGameWonModal"
-    @closed="gameWonModalShown = true"
-    title="Congratulations!">
+  <el-dialog v-model="showGameWonModal" @closed="gameWonModalShown = true" title="Congratulations!">
     <GameWon />
+  </el-dialog>
+  <el-dialog v-model="popupModalShown" title="Welcome to Spelling Bee!" :close-on-click-modal="false" :show-close="false">
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="fullName">Full Name:</label>
+        <el-input v-model="fullName" id="fullName" placeholder="Enter your full name"></el-input>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <el-input v-model="email" id="email" placeholder="Enter your email" type="email"></el-input>
+      </div>
+      <div style="margin-top: 20px;">
+        <el-button type="primary" native-type="submit">Submit</el-button>
+      </div>
+    </form>
   </el-dialog>
   <el-dialog v-model="showYesterdaysAnswers" :title="$t('Yesterdays Answers')">
     <YesterdaysAnswers />
@@ -95,21 +125,13 @@ store.startGame({ allAnswers });
         <span class="responsive-menu-text">{{ $t("Yesterday") }}</span>
       </el-menu-item>
       <el-menu-item index="3">
-        <el-switch
-          v-model="darkmode"
-          @change="onToggleDarkMode"
-          class="darkmode-switch"
-          style="--el-switch-on-color: $bl-yellow"
-          inline-prompt
-          size="large"
-          :active-icon="Sunny"
+        <el-switch v-model="darkmode" @change="onToggleDarkMode" class="darkmode-switch"
+          style="--el-switch-on-color: $bl-yellow" inline-prompt size="large" :active-icon="Sunny"
           :inactive-icon="Moon" />
       </el-menu-item>
     </el-menu>
     <Progress />
-    <CorrectGuesses
-      @open="onOpenCorrectGuesses"
-      @close="onCloseCorrectGuesses" />
+    <CorrectGuesses @open="onOpenCorrectGuesses" @close="onCloseCorrectGuesses" />
     <Hive :ZIndex="zindex" />
   </div>
 </template>
@@ -138,6 +160,7 @@ store.startGame({ allAnswers });
 html {
   box-sizing: border-box;
 }
+
 *,
 *:before,
 *:after {
@@ -172,34 +195,43 @@ h2 span {
   padding: 0;
   margin: 0;
 }
+
 .el-menu--horizontal {
   border-top: solid 1px var(--el-menu-border-color);
   justify-content: space-between;
+
   .el-menu-item {
     padding: 0;
   }
+
   // yellow is too bright on light theme, use default blue
   // .el-menu-item.is-active {
   //   color: $bl-yellow !important;
   //   border-bottom-color: currentcolor;
   // }
 }
+
 .is-focused {
   border-color: $bl-yellow !important;
 }
+
 .is-selected {
   color: $bl-yellow !important;
+
   &::after {
     color: $bl-yellow;
     background-color: $bl-yellow !important;
   }
 }
+
 .el-dialog {
   width: 80%;
 }
+
 .el-table {
   --el-table-header-bg-color: unset;
 }
+
 .el-message--success {
   --el-message-bg-color: unset;
   --el-message-text-color: unset;
@@ -219,6 +251,7 @@ h2 span {
   // account for 10px padding on either side of #app
   max-width: calc(100% - 20px);
   max-height: 100vh;
+
   #title-header {
     margin: 0;
     padding: 0;
@@ -241,6 +274,7 @@ html.dark {
   header strong {
     color: $bl-yellow;
   }
+
   .pangram {
     color: $bl-yellow;
   }
@@ -256,6 +290,7 @@ html.dark {
   #app {
     margin-top: 10px;
   }
+
   .menu-icon {
     margin: 19px 5px;
   }
@@ -264,6 +299,17 @@ html.dark {
 @media only screen and (max-width: 400px) {
   .responsive-menu-text {
     display: none;
+  }
+}
+
+form {
+  div {
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
   }
 }
 </style>
