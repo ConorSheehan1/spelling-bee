@@ -21,9 +21,12 @@ const fullName = ref("");
 const email = ref("");
 
 const darkmode = ref(store.theme === "dark");
-const popupModalShown = ref(!localStorage.getItem("full_name") || !localStorage.getItem("email"));
+const popupModalShown = ref(
+  !localStorage.getItem("full_name") || !localStorage.getItem("email")
+);
 const onToggleDarkMode = () => {
-  popupModalShown.value = !localStorage.getItem("full_name") || !localStorage.getItem("email");
+  popupModalShown.value =
+    !localStorage.getItem("full_name") || !localStorage.getItem("email");
   if (darkmode.value === true) {
     store.theme = "dark";
     document.documentElement.classList.add("dark");
@@ -34,7 +37,7 @@ const onToggleDarkMode = () => {
 };
 
 const showGameWonModal = computed(
-  () => store.getProgressPercentage === 100 && gameWonModalShown.value === false
+  () => store.getProgressPercentage >= 12 && gameWonModalShown.value === false
 );
 
 const onOpenCorrectGuesses = () => {
@@ -61,10 +64,10 @@ store.startGame({ allAnswers });
 const submitForm = () => {
   if (fullName.value.trim() !== "" && email.value.trim() !== "") {
     console.log("Full Name:", fullName.value);
-    localStorage.setItem("full_name", fullName.value)
+    localStorage.setItem("full_name", fullName.value);
     console.log("Email:", email.value);
-    localStorage.setItem("email", email.value)
-    showInfo.value = true
+    localStorage.setItem("email", email.value);
+    showInfo.value = true;
     popupModalShown.value = false; // Only close the modal if both fields are filled
   } else {
     // You can show a notification or a message to inform the user to fill out both fields
@@ -74,20 +77,34 @@ const submitForm = () => {
 </script>
 
 <template>
-  <el-dialog v-model="showGameWonModal" @closed="gameWonModalShown = true" title="Congratulations!">
+  <el-dialog
+    v-model="showGameWonModal"
+    @closed="gameWonModalShown = true"
+    title="Congratulations!">
     <GameWon />
   </el-dialog>
-  <el-dialog v-model="popupModalShown" title="Welcome to Spelling Bee!" :close-on-click-modal="false" :show-close="false">
+  <el-dialog
+    v-model="popupModalShown"
+    title="Welcome to Spelling Bee!"
+    :close-on-click-modal="false"
+    :show-close="false">
     <form @submit.prevent="submitForm">
       <div>
         <label for="fullName">Full Name:</label>
-        <el-input v-model="fullName" id="fullName" placeholder="Enter your full name"></el-input>
+        <el-input
+          v-model="fullName"
+          id="fullName"
+          placeholder="Enter your full name"></el-input>
       </div>
       <div>
         <label for="email">Email:</label>
-        <el-input v-model="email" id="email" placeholder="Enter your email" type="email"></el-input>
+        <el-input
+          v-model="email"
+          id="email"
+          placeholder="Enter your email"
+          type="email"></el-input>
       </div>
-      <div style="margin-top: 20px;">
+      <div style="margin-top: 20px">
         <el-button type="primary" native-type="submit">Submit</el-button>
       </div>
     </form>
@@ -125,13 +142,21 @@ const submitForm = () => {
         <span class="responsive-menu-text">{{ $t("Yesterday") }}</span>
       </el-menu-item>
       <el-menu-item index="3">
-        <el-switch v-model="darkmode" @change="onToggleDarkMode" class="darkmode-switch"
-          style="--el-switch-on-color: $bl-yellow" inline-prompt size="large" :active-icon="Sunny"
+        <el-switch
+          v-model="darkmode"
+          @change="onToggleDarkMode"
+          class="darkmode-switch"
+          style="--el-switch-on-color: $bl-yellow"
+          inline-prompt
+          size="large"
+          :active-icon="Sunny"
           :inactive-icon="Moon" />
       </el-menu-item>
     </el-menu>
     <Progress />
-    <CorrectGuesses @open="onOpenCorrectGuesses" @close="onCloseCorrectGuesses" />
+    <CorrectGuesses
+      @open="onOpenCorrectGuesses"
+      @close="onCloseCorrectGuesses" />
     <Hive :ZIndex="zindex" />
   </div>
 </template>
