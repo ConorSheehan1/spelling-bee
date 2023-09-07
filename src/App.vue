@@ -17,9 +17,16 @@ const zindex = ref(0);
 const gameWonModalShown = ref(false); // only show gameWon modal once
 let timer: any;
 
-const darkmode = ref(store.theme === "dark");
+const fullName = ref("");
+const email = ref("");
+const popupModalShown = ref(
+  !localStorage.getItem("full_name") || !localStorage.getItem("email")
+);
 
+const darkmode = ref(store.theme === "dark");
 const onToggleDarkMode = () => {
+  popupModalShown.value =
+    !localStorage.getItem("full_name") || !localStorage.getItem("email");
   if (darkmode.value === true) {
     store.theme = "dark";
     document.documentElement.classList.add("dark");
@@ -30,7 +37,7 @@ const onToggleDarkMode = () => {
 };
 
 const showGameWonModal = computed(
-  () => store.getProgressPercentage === 100 && gameWonModalShown.value === false
+  () => store.getProgressPercentage >= 12 && gameWonModalShown.value === false
 );
 
 const onOpenCorrectGuesses = () => {
@@ -53,6 +60,20 @@ store.startGame({ allAnswers });
 // TODO: add shake animation on incorrect submission?
 // https://www.reddit.com/r/webdev/comments/su6y4r/what_animations_are_used_in_wordle/
 // need setTimeout to wait for animation before removing guess
+
+const submitForm = () => {
+  if (fullName.value.trim() !== "" && email.value.trim() !== "") {
+    console.log("Full Name:", fullName.value);
+    localStorage.setItem("full_name", fullName.value);
+    console.log("Email:", email.value);
+    localStorage.setItem("email", email.value);
+    showInfo.value = true;
+    popupModalShown.value = false; // Only close the modal if both fields are filled
+  } else {
+    // You can show a notification or a message to inform the user to fill out both fields
+    console.warn("Both fields are required!");
+  }
+};
 </script>
 
 <template>
@@ -61,6 +82,34 @@ store.startGame({ allAnswers });
     @closed="gameWonModalShown = true"
     title="Congratulations!">
     <GameWon />
+  </el-dialog>
+  <el-dialog
+    v-model="popupModalShown"
+    title="Welcome to Spelling Bee!"
+    :close-on-click-modal="false"
+    :show-close="false">
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="fullName">Full Name:</label>
+        <el-input
+          v-model="fullName"
+          id="fullName"
+          ref="myInput"
+          focus
+          placeholder="Enter your full name"></el-input>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <el-input
+          v-model="email"
+          id="email"
+          placeholder="Enter your email"
+          type="email"></el-input>
+      </div>
+      <div style="margin-top: 20px">
+        <el-button type="primary" native-type="submit">Submit</el-button>
+      </div>
+    </form>
   </el-dialog>
   <el-dialog v-model="showYesterdaysAnswers" :title="$t('Yesterdays Answers')">
     <YesterdaysAnswers />
@@ -264,6 +313,17 @@ html.dark {
 @media only screen and (max-width: 400px) {
   .responsive-menu-text {
     display: none;
+  }
+}
+
+form {
+  div {
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
   }
 }
 </style>

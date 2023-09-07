@@ -44,12 +44,12 @@ const submitGuess = ({ $t, guess }: { $t: Function; guess: string }) => {
   store.submitGuess({ $t, guess });
 };
 
-onMounted(() => {
-  window.addEventListener("keyup", onKeyPress);
-});
-onUnmounted(() => {
-  window.removeEventListener("keyup", onKeyPress);
-});
+// onMounted(() => {
+//   window.addEventListener("keyup", onKeyPress);
+// });
+// onUnmounted(() => {
+//   window.removeEventListener("keyup", onKeyPress);
+// });
 </script>
 
 <template>
