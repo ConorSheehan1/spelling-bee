@@ -39,11 +39,14 @@ const gridify = ({
 // allow random generator to be seeded for more predictable results of createFiles.ts
 const createRandomGenerator = ({
   seed = 1,
-}: { seed?: number } = {}): Function => {
+  userId,
+}: { seed?: number, userId?: string } = {}): Function => {
+  const userSeed = userId ? parseInt(userId.slice(-4), 16) : 1; 
+  let initialSeed = seed * userSeed;  // Changed 'const' to 'let' to allow modification
   // https://stackoverflow.com/a/19303725/6305204
   // produces random floats between 0 and 1.0
   const random = (): number => {
-    const x = Math.sin(seed++) * 10000;
+    const x = Math.sin(initialSeed++) * 10000;  // Used 'initialSeed' instead of 'seed'
     return x - Math.floor(x);
   };
   return random;

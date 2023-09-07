@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
 import { differenceInDays, isSameDay } from "date-fns";
-import { epoch, generateAnswerObjs, incrementDups } from "./utils";
+import { epoch, generateAnswerObjs, incrementDups, shuffle } from "./utils";
 import { Answer } from "./models/answer";
 
 export const useMainStore = defineStore({
@@ -11,6 +11,7 @@ export const useMainStore = defineStore({
   state: () => ({
     // todays puzzle
     // correctGuesses as array caused infinite update issue when game was open in multiple tabs. see #6
+    userId: useStorage("userId", "" as string),
     correctGuesses: useStorage("correctGuesses", new Set([]) as Set<string>),
     answers: useStorage("answers", [] as Array<string>),
     availableLetters: useStorage("availableLetters", "" as string),
@@ -151,10 +152,13 @@ export const useMainStore = defineStore({
         });
       }
     },
-    startGame({ allAnswers }: { allAnswers: Array<Answer> }) {
+    startGame({ allAnswers, userId }: { allAnswers: Array<Answer>, userId: string }) {
       const now = new Date();
       // if it's the same day, don't restart the game
       if (isSameDay(this.getGameDate, now)) return false;
+
+      // Set userId in state
+      this.userId = userId;
 
       // set gameDate to clear guesses tomorrow
       this.gameDate = now;
@@ -162,7 +166,7 @@ export const useMainStore = defineStore({
       this.correctGuesses = new Set([]);
 
       const { todaysAnswerObj, yesterdaysAnswerObj } = generateAnswerObjs({
-        allAnswers,
+        allAnswers: shuffle(allAnswers, parseInt(userId)),
         gameDate: this.gameDate,
       });
       this.setYesterdaysAnswersAndLastGameDate({ yesterdaysAnswerObj });

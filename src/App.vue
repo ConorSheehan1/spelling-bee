@@ -54,7 +54,9 @@ const onCloseCorrectGuesses = () => {
 
 onMounted(onToggleDarkMode);
 
-store.startGame({ allAnswers });
+const userId = Math.floor(Math.random() * 99999) + 1;
+
+store.startGame({ allAnswers, userId: userId.toString() });
 // TODO: remove i18n
 // TODO: extra not in spellingbee: track scores across days
 // TODO: add shake animation on incorrect submission?
