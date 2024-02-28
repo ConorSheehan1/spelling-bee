@@ -1,6 +1,8 @@
 ## Build Setup
 
 ```shell
+npm install -g yarn
+
 # install dependencies
 yarn install
 
