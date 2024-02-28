@@ -27,7 +27,8 @@
     "pinia": "^2.0.15",
     "sass": "^1.53.0",
     "vue": "^3.2.25",
-    "vue-i18n": "^9.1.10"
+    "vue-i18n": "^9.1.10",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^5.0.0",

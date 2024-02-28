@@ -1,7 +1,14 @@
 ## Build Setup
 
 ```shell
-# install dependencies
+# current versions are:
+# node 20.5.1
+# npm  9.8.0
+# yarn 1.22.21
+
+npm install -g yarn
+
+# install dependencies 
 yarn install
 
 # dev server
