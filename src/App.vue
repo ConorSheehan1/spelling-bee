@@ -6,6 +6,7 @@ import Progress from "./components/Progress.vue";
 import YesterdaysAnswers from "./components/YesterdaysAnswers.vue";
 import Info from "./components/Info.vue";
 import GameWon from "./components/GameWon.vue";
+import MigrationModal from "./components/MigrationModal.vue";
 import allAnswers from "../data/allAnswers.json";
 import { useMainStore } from "./store";
 import { InfoFilled, Calendar, Sunny, Moon } from "@element-plus/icons-vue";
@@ -33,6 +34,13 @@ const showGameWonModal = computed(
   () => store.getProgressPercentage === 100 && gameWonModalShown.value === false
 );
 
+let showMigrationModal = ref(false);
+const checkUrl = () => {
+  showMigrationModal.value = window.location.href.includes(
+    "spelling-b.netlify.app"
+  );
+};
+
 const onOpenCorrectGuesses = () => {
   // without clearing timer, if user toggles correct guesses quickly, it will fade to background after timeout
   clearTimeout(timer);
@@ -45,7 +53,10 @@ const onCloseCorrectGuesses = () => {
   }, 2000);
 };
 
-onMounted(onToggleDarkMode);
+onMounted(() => {
+  onToggleDarkMode();
+  checkUrl();
+});
 
 store.startGame({ allAnswers });
 // TODO: remove i18n
@@ -56,6 +67,9 @@ store.startGame({ allAnswers });
 </script>
 
 <template>
+  <el-dialog v-model="showMigrationModal" title="URL Migration">
+    <MigrationModal />
+  </el-dialog>
   <el-dialog
     v-model="showGameWonModal"
     @closed="gameWonModalShown = true"

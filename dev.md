@@ -8,7 +8,7 @@
 
 npm install -g yarn
 
-# install dependencies 
+# install dependencies
 yarn install
 
 # dev server
