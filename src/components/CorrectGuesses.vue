@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { useWindowSize } from "@vueuse/core";
 import { computed, ref } from "vue";
 import { useMainStore } from "../store";
 import { gridify } from "../utils";
 
 import { useI18n } from "vue-i18n";
 import en from "../locales/en.json";
+
+const { width: windowWidth } = useWindowSize();
 
 const { t } = useI18n({
   inheritLocale: true,
@@ -20,9 +23,20 @@ const numCorrectMessage = computed(() => {
   return t("foundWords", store.getCorrectGuesses.length);
 });
 
-const lastFiveGuesses = computed(() => {
-  const numGuessesToShow = Math.min(store.getCorrectGuesses.length, 5);
-  return store.getCorrectGuesses.reverse().slice(0, numGuessesToShow);
+const guessPreview = computed(() => {
+  // show max 10 words as preview
+  const numGuessesToShow = Math.min(store.getCorrectGuesses.length, 10);
+  const numCharsToShow = windowWidth.value / 10;
+  let correctGuesses = store.getCorrectGuesses
+    .reverse()
+    .slice(0, numGuessesToShow);
+  // while total character count of correctGuesses >= numCharsToShow, pop last entry
+  while (
+    correctGuesses.reduce((acc, cg) => acc + cg.length, 0) >= numCharsToShow
+  ) {
+    correctGuesses.pop();
+  }
+  return correctGuesses;
 });
 
 // alphabetical when expanded, in order found when collapsed.
@@ -41,17 +55,19 @@ const gridData = computed(
         <template v-if="showWords.length === 2">
           {{ numCorrectMessage }}
         </template>
-        <template v-else-if="lastFiveGuesses.length === 0">
+        <template v-else-if="guessPreview.length === 0">
           {{ t("Your words") }}...
         </template>
         <template v-else>
           <span
-            v-for="(guess, index) in lastFiveGuesses"
+            v-for="(guess, index) in guessPreview"
             :key="guess"
             :class="store.cellClassName({ row: [guess], columnIndex: -1 })">
-            {{ guess }}{{ index === lastFiveGuesses.length - 1 ? "" : ", " }}
+            {{ guess }}{{ index === guessPreview.length - 1 ? "" : ", " }}
           </span>
-          <span v-if="lastFiveGuesses.length === 5"> ... </span>
+          <span v-if="store.getCorrectGuesses.length > guessPreview.length">
+            ...
+          </span>
         </template>
       </template>
       <el-table
