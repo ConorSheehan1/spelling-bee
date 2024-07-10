@@ -2,7 +2,7 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
-import { differenceInDays, isSameDay } from "date-fns";
+import { differenceInDays } from "date-fns";
 import { epoch, generateAnswerObjs, incrementDups } from "./utils";
 import { Answer } from "./models/answer";
 
@@ -151,13 +151,31 @@ export const useMainStore = defineStore({
         });
       }
     },
-    startGame({ allAnswers }: { allAnswers: Array<Answer> }) {
-      const now = new Date();
+    startGame({
+      allAnswers,
+      gameDate = null,
+    }: {
+      allAnswers: Array<Answer>;
+      gameDate: Date | null;
+    }) {
+      let gameDateString;
+      if (gameDate !== null) {
+        // gameDate can be injected for reproducible testing regardless of runtime timezone
+        gameDateString = gameDate.toISOString().split("T")[0];
+      } else {
+        // otherwise use the local date to determine what game should be played
+        // the simplest way to get the local date in ISO 8601 format from a Date object is
+        // through a locale which formats dates to ISO 8601 such as Swedish (language code "sv")
+        // https://stackoverflow.com/a/60368477
+        gameDateString = new Date().toLocaleDateString("sv");
+        gameDate = new Date(gameDateString);
+      }
+
       // if it's the same day, don't restart the game
-      if (isSameDay(this.getGameDate, now)) return false;
+      if (this.getGameDateString === gameDateString) return false;
 
       // set gameDate to clear guesses tomorrow
-      this.gameDate = now;
+      this.gameDate = gameDate;
       // new game so reset guesses
       this.correctGuesses = new Set([]);
 
