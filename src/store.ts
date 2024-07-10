@@ -24,6 +24,7 @@ export const useMainStore = defineStore({
       "" as string
     ),
     yesterdaysMiddleLetter: useStorage("yesterdaysMiddleLetter", "" as string),
+    yesterdaysCorrectGuesses: useStorage("yesterdaysCorrectGuesses", new Set([]) as Set<string>),
     theme: useStorage("theme", "light" as string),
     // don't need to be in local storage because they doesn't change
     pointsMessages: {
@@ -158,8 +159,6 @@ export const useMainStore = defineStore({
 
       // set gameDate to clear guesses tomorrow
       this.gameDate = now;
-      // new game so reset guesses
-      this.correctGuesses = new Set([]);
 
       const { todaysAnswerObj, yesterdaysAnswerObj } = generateAnswerObjs({
         allAnswers,
@@ -173,6 +172,9 @@ export const useMainStore = defineStore({
       this.answers = answers;
       this.availableLetters = availableLetters;
       this.middleLetter = middleLetter;
+
+      // new game so reset guesses
+      this.correctGuesses = new Set([]);
     },
     setYesterdaysAnswersAndLastGameDate({
       yesterdaysAnswerObj,
@@ -188,6 +190,7 @@ export const useMainStore = defineStore({
         this.yesterdaysAnswers = this.answers;
         this.yesterdaysAvailableLetters = this.availableLetters;
         this.yesterdaysMiddleLetter = this.middleLetter;
+        this.yesterdaysCorrectGuesses = this.correctGuesses;
         return "local-storage-cache";
       } else {
         const {
@@ -198,6 +201,7 @@ export const useMainStore = defineStore({
         this.yesterdaysAnswers = yesterdaysAnswers;
         this.yesterdaysAvailableLetters = yesterdaysAvailableLetters;
         this.yesterdaysMiddleLetter = yesterdaysMiddleLetter;
+        this.yesterdaysCorrectGuesses = new Set([]);
         this.lastGameDate = this.gameDate;
         return "cache-bust";
       }
@@ -223,10 +227,15 @@ export const useMainStore = defineStore({
       return `${$t(`points.${message}`)}! +${points}`;
     },
     cellClassName({ row, columnIndex }: { row: any; columnIndex: number }) {
+      let className = "";
       const word = row[columnIndex + 1];
       if (word && this.isPangram({ word })) {
-        return "pangram";
+        className += "pangram ";
       }
+      if (word && this.yesterdaysCorrectGuesses.has(word)) {
+        className += "guessed-yesterday "
+      }
+      return className
     },
   },
 });
