@@ -37,7 +37,7 @@
     "@vitejs/plugin-vue": "^2.3.3",
     "@vue/test-utils": "^2.0.2",
     "cli-progress": "^3.11.2",
-    "happy-dom": "^6.0.4",
+    "happy-dom": "^15.10.1",
     "pre-commit": "^1.2.2",
     "prettier": "^2.7.1",
     "readline-sync": "^1.4.10",
