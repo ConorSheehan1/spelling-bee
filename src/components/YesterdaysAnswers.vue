@@ -32,4 +32,12 @@ const gridData = computed(() =>
   font-weight: bold;
   color: $bl-yellow;
 }
+
+.guessed-yesterday {
+  background-color: #d4e7d4;
+}
+
+html.dark .guessed-yesterday {
+  background-color: #1e321e;
+}
 </style>
