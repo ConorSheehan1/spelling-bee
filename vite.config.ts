@@ -8,10 +8,7 @@ const dateHash = new Date().toISOString().split("T")[0];
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    checker({ typescript: true }),
-  ],
+  plugins: [react(), checker({ typescript: true })],
   build: {
     rollupOptions: {
       output: {

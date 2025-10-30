@@ -12,9 +12,7 @@ export const MigrationModal: React.FC = () => {
       </p>
       <p>
         Please use{" "}
-        <a
-          href="https://spelling-bee-free.pages.dev"
-          className="link-primary">
+        <a href="https://spelling-bee-free.pages.dev" className="link-primary">
           https://spelling-bee-free.pages.dev
         </a>{" "}
         instead. Sorry for the short notice!

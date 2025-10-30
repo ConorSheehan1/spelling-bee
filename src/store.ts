@@ -79,7 +79,13 @@ export const useMainStore = create<MainStore>()(
 
       setTheme: (theme: "light" | "dark") => set({ theme }),
 
-      submitGuess: ({ guess, t }: { guess: string; t: (key: string) => string }) => {
+      submitGuess: ({
+        guess,
+        t,
+      }: {
+        guess: string;
+        t: (key: string) => string;
+      }) => {
         const state = get();
 
         if (guess.length < 4) {
@@ -140,7 +146,11 @@ export const useMainStore = create<MainStore>()(
         set({ answers, availableLetters, middleLetter });
       },
 
-      setYesterdaysAnswersAndLastGameDate: ({ yesterdaysAnswerObj }: { yesterdaysAnswerObj: Answer }) => {
+      setYesterdaysAnswersAndLastGameDate: ({
+        yesterdaysAnswerObj,
+      }: {
+        yesterdaysAnswerObj: Answer;
+      }) => {
         const state = get();
 
         if (differenceInDays(state.gameDate, state.lastGameDate) === 1) {
@@ -177,13 +187,25 @@ export const useMainStore = create<MainStore>()(
         return new Set(word).size === 7;
       },
 
-      generatePointsMessage: ({ t, points }: { t: (key: string) => string; points: number }) => {
+      generatePointsMessage: ({
+        t,
+        points,
+      }: {
+        t: (key: string) => string;
+        points: number;
+      }) => {
         const state = get();
         const message = state.pointsMessages[points] || "awesome";
         return `${t(`points.${message}`)}! +${points}`;
       },
 
-      cellClassName: ({ row, columnIndex }: { row: any; columnIndex: number }) => {
+      cellClassName: ({
+        row,
+        columnIndex,
+      }: {
+        row: any;
+        columnIndex: number;
+      }) => {
         const state = get();
         const word = row[columnIndex + 1];
         if (word && state.isPangram({ word })) {
@@ -242,9 +264,11 @@ export const useMainStore = create<MainStore>()(
 
       getUserScore: () => {
         const state = get();
-        return state.getCorrectGuesses().reduce((acc: number, word: string): number => {
-          return acc + state.calculatePoints({ word });
-        }, 0);
+        return state
+          .getCorrectGuesses()
+          .reduce((acc: number, word: string): number => {
+            return acc + state.calculatePoints({ word });
+          }, 0);
       },
 
       getColor: () => {

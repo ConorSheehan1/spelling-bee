@@ -7,8 +7,7 @@ export const YesterdaysAnswers: React.FC = () => {
   const store = useMainStore();
 
   const gridData = useMemo(
-    () =>
-      gridify({ arr: Array.from(store.yesterdaysAnswers).sort(), size: 3 }),
+    () => gridify({ arr: Array.from(store.yesterdaysAnswers).sort(), size: 3 }),
     [store.yesterdaysAnswers]
   );
 

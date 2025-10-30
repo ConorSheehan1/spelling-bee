@@ -119,7 +119,10 @@ function App() {
         onClose={() => setShowInfo(false)}>
         <Info />
       </Modal>
-      <div className={`common-layout fireworks ${showGameWonModal ? "show-fireworks" : ""}`}>
+      <div
+        className={`common-layout fireworks ${
+          showGameWonModal ? "show-fireworks" : ""
+        }`}>
         {showGameWonModal && (
           <>
             <div className="beforeFireworks" />
@@ -156,9 +159,7 @@ function App() {
                 checked={darkmode}
                 onChange={(e) => onToggleDarkMode(e.target.checked)}
               />
-              <span className="slider">
-                {darkmode ? <Sunny /> : <Moon />}
-              </span>
+              <span className="slider">{darkmode ? <Sunny /> : <Moon />}</span>
             </label>
           </div>
         </nav>
