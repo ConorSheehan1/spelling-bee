@@ -1,0 +1,15 @@
+html.dark {
+  .github-icon {
+    filter: invert(0.8);
+  }
+}
+
+.link-primary {
+  color: #409eff;
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #66b1ff;
+  }
+}

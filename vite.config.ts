@@ -1,7 +1,5 @@
-import path from "path";
 import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { vueI18n } from "@intlify/vite-plugin-vue-i18n";
+import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker";
 
 // https://stackoverflow.com/a/68123263/6305204
@@ -10,13 +8,7 @@ const dateHash = new Date().toISOString().split("T")[0];
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    checker({ typescript: true }),
-    vue(),
-    vueI18n({
-      include: path.resolve(__dirname, "./src/locales/**"),
-    }),
-  ],
+  plugins: [react(), checker({ typescript: true })],
   build: {
     rollupOptions: {
       output: {
