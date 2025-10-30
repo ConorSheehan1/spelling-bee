@@ -1,0 +1,151 @@
+@import "../assets/styles/_variables";
+
+.user-guess {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  height: 35px;
+  font-weight: 700;
+  font-size: 25px;
+  .middle-letter {
+    color: $bl-yellow;
+  }
+}
+.sb-controls {
+  /* put entire hive behind correctGuesses when table is expanded */
+  max-width: 290px;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 150ms 200ms ease;
+}
+.hive {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+.hive-cell {
+  position: absolute;
+  top: calc(100% / 3);
+  left: 30%;
+  width: 40%;
+  height: calc(100% / 3);
+}
+.hive-cell .cell-fill {
+  cursor: pointer;
+  fill: $bl-grey;
+  transition: all 100ms;
+}
+.hive .cell-letter {
+  font-weight: 700;
+  font-size: 30px;
+  text-anchor: middle;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.hive-cell:first-child .cell-fill {
+  cursor: pointer;
+  fill: $bl-yellow;
+  transition: all 100ms;
+}
+.hive-cell:nth-child(1) {
+  transform: translate(0, 0);
+}
+.hive-cell:nth-child(2) {
+  transform: translate(-75%, -50%);
+}
+.hive-cell:nth-child(3) {
+  transform: translate(0, -100%);
+}
+.hive-cell:nth-child(4) {
+  transform: translate(75%, -50%);
+}
+.hive-cell:nth-child(5) {
+  transform: translate(75%, 50%);
+}
+.hive-cell:nth-child(6) {
+  transform: translate(0, 100%);
+}
+.hive-cell:nth-child(7) {
+  transform: translate(-75%, 50%);
+}
+.hive-actions {
+  margin-top: 1em;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.hive-actions button {
+  transition: all 0.2s ease;
+}
+.hive-actions button:active {
+  box-shadow: 0 5px $bl-grey;
+  transform: translateY(4px);
+}
+polygon.cell-fill:active {
+  transform: scale(0.9);
+}
+polygon.cell-fill {
+  transition: all 1s;
+  transform-origin: 50% 50%;
+}
+.hive-action {
+  padding: 15px;
+  flex: 1;
+  background-color: #fff;
+  font-size: 18px;
+  margin: 0 12px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+.hive-action__shuffle {
+  background: url(../assets/shuffle.svg) center no-repeat;
+  background-color: #fff;
+  background-size: auto;
+  background-size: 60%;
+  height: 50px;
+  min-width: 50px;
+}
+html.dark {
+  .hive-action,
+  .hive-action__shuffle {
+    background-color: $bl-grey;
+  }
+  .user-guess {
+    color: $bl-grey;
+  }
+}
+
+@media only screen and (max-height: 650px) {
+  .sb-controls {
+    top: max(65%, 420px);
+  }
+  .hive-cell {
+    top: 30%;
+    left: 33%;
+    width: 33%;
+    height: 28%;
+  }
+  .hive-actions {
+    margin-top: 0;
+  }
+}
+
+@media (orientation: landscape) {
+  .sb-controls {
+    top: max(65%, 500px);
+  }
+  .hive-actions {
+    padding-bottom: 2rem;
+  }
+}

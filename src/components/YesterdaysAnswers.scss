@@ -1,0 +1,56 @@
+@import "../assets/styles/_variables";
+
+.yesterday-letters {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-transform: uppercase;
+
+  span {
+    margin: 0 3px;
+  }
+
+  .middle-letter {
+    font-weight: bold;
+    color: $bl-yellow;
+  }
+}
+
+.yesterdays-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  td {
+    padding: 12px;
+    text-align: center;
+    border: none;
+    color: #606266;
+    font-size: 14px;
+
+    &.pangram {
+      font-weight: bold;
+      color: #000;
+    }
+  }
+
+  tr:hover td {
+    background-color: #f5f7fa;
+  }
+}
+
+html.dark {
+  .yesterdays-table {
+    td {
+      color: #e6e6e6;
+
+      &.pangram {
+        font-weight: bold;
+        color: $bl-yellow;
+      }
+    }
+
+    tr:hover td {
+      background-color: #262627;
+    }
+  }
+}

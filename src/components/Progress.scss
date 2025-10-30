@@ -1,0 +1,85 @@
+@import "../assets/styles/_variables";
+
+.row {
+  margin: 20px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.progress-bar-outer {
+  height: 20px;
+  background-color: #ebeef5;
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  background-color: $bl-yellow;
+  border-radius: 100px;
+  transition: width 0.6s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 5px;
+}
+
+.progress-text {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #606266;
+  font-weight: bold;
+}
+
+.ranking-dialog {
+  text-align: left;
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      padding: 8px 0;
+      border-bottom: 1px solid #ebeef5;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+html.dark {
+  .row strong {
+    color: $bl-grey;
+  }
+
+  .progress-bar-outer {
+    background-color: #4c4d4f;
+  }
+
+  .progress-text {
+    color: #e6e6e6;
+  }
+
+  .ranking-dialog {
+    ul li {
+      border-bottom-color: #4c4d4f;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .row {
+    margin: 10px;
+  }
+}
