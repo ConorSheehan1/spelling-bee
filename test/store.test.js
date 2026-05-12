@@ -152,6 +152,35 @@ describe("Store", () => {
         expect(store.yesterdaysMiddleLetter).toEqual("l");
       });
     });
+    describe("when lastGameDate is yesterday but in different timezone", () => {
+      let gameDate;
+      let lastGameDate;
+      beforeEach(() => {
+        // Simulate: yesterday at 23:00 UTC (which is today at 04:00 in UTC+5 timezone)
+        // today at 02:00 UTC (which is yesterday at 21:00 in UTC+5 timezone)
+        // Even though UTC diff is -21 hours, local day diff is +1
+        gameDate = new Date("2222-02-05T02:00:00Z");
+        lastGameDate = new Date("2222-02-04T23:00:00Z");
+        store.gameDate = lastGameDate;
+        vi.useFakeTimers();
+        vi.setSystemTime(gameDate);
+      });
+      it("should use the local storage cache using local midnight comparison", () => {
+        store.lastGameDate = lastGameDate;
+        store.answers = ["test", "use", "cache"];
+        store.middleLetter = "e";
+        store.availableLetters = "acehstu";
+        store.startGame({ allAnswers });
+        expect(store.correctGuesses).toEqual(new Set([]));
+        expect(store.answers).toEqual(["error", "ooze", "otter"]);
+        expect(store.availableLetters).toEqual("eioprtz");
+        expect(store.middleLetter).toEqual("o");
+        // Should use cached values because local midnights are 1 day apart
+        expect(store.yesterdaysAnswers).toEqual(["test", "use", "cache"]);
+        expect(store.yesterdaysAvailableLetters).toEqual("acehstu");
+        expect(store.yesterdaysMiddleLetter).toEqual("e");
+      });
+    });
     describe("when today is not a new game", () => {
       let gameDate;
       let gameDateString = "2023-02-23";

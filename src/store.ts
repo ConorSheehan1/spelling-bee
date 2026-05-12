@@ -2,7 +2,7 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
-import { differenceInDays, isSameDay } from "date-fns";
+import { differenceInDays, isSameDay, startOfDay } from "date-fns";
 import { epoch, generateAnswerObjs, incrementDups } from "./utils";
 import { Answer } from "./models/answer";
 
@@ -184,7 +184,13 @@ export const useMainStore = defineStore({
       // e.g. https://github.com/ConorSheehan1/spelling-bee/issues/3
       // bug where yesterdays answers were always incorrect at the first of the month.
       // to avoid this, use todays answers from local storage as yesterdays answers if gamedate was yesterday
-      if (differenceInDays(this.gameDate, this.lastGameDate) === 1) {
+      // Use startOfDay to normalize to local midnight for accurate timezone-aware comparison
+      if (
+        differenceInDays(
+          startOfDay(this.gameDate),
+          startOfDay(this.lastGameDate)
+        ) === 1
+      ) {
         this.yesterdaysAnswers = this.answers;
         this.yesterdaysAvailableLetters = this.availableLetters;
         this.yesterdaysMiddleLetter = this.middleLetter;
