@@ -67,13 +67,13 @@ const gridData = computed(
 </template>
 
 <style scoped lang="scss">
-@import "../assets/styles/_variables";
+@use "../assets/styles/_variables";
 
 .correct-guesses-table {
   min-height: 50vh;
 }
 
 html.dark .el-collapse {
-  background-color: $bl-el-plus-dark-bg;
+  background-color: variables.$bl-el-plus-dark-bg;
 }
 </style>

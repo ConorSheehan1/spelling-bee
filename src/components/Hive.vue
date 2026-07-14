@@ -115,7 +115,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import "../assets/styles/_variables";
+@use "../assets/styles/_variables";
 
 .user-guess {
   text-transform: uppercase;
@@ -124,7 +124,7 @@ onUnmounted(() => {
   font-weight: 700;
   font-size: 25px;
   .middle-letter {
-    color: $bl-yellow;
+    color: variables.$bl-yellow;
   }
 }
 .sb-controls {
@@ -151,7 +151,7 @@ onUnmounted(() => {
 }
 .hive-cell .cell-fill {
   cursor: pointer;
-  fill: $bl-grey;
+  fill: variables.$bl-grey;
   transition: all 100ms;
 }
 .hive .cell-letter {
@@ -163,7 +163,7 @@ onUnmounted(() => {
 }
 .hive-cell:first-child .cell-fill {
   cursor: pointer;
-  fill: $bl-yellow;
+  fill: variables.$bl-yellow;
   transition: all 100ms;
 }
 .hive-cell:nth-child(1) {
@@ -200,7 +200,7 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 .hive-actions button:active {
-  box-shadow: 0 5px $bl-grey;
+  box-shadow: 0 5px variables.$bl-grey;
   transform: translateY(4px);
 }
 polygon.cell-fill:active {
@@ -236,10 +236,10 @@ polygon.cell-fill {
 html.dark {
   .hive-action,
   .hive-action__shuffle {
-    background-color: $bl-grey;
+    background-color: variables.$bl-grey;
   }
   .user-guess {
-    color: $bl-grey;
+    color: variables.$bl-grey;
   }
 }
 

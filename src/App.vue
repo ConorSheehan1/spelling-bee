@@ -113,7 +113,6 @@ store.startGame({ allAnswers });
           v-model="darkmode"
           @change="onToggleDarkMode"
           class="darkmode-switch"
-          style="--el-switch-on-color: $bl-yellow"
           inline-prompt
           size="large"
           :active-icon="Sunny"
@@ -129,10 +128,10 @@ store.startGame({ allAnswers });
 </template>
 
 <style lang="scss">
-@import "element-plus/dist/index.css";
-@import "element-plus/theme-chalk/dark/css-vars.css";
-@import "./assets/styles/fireworks.scss";
-@import "./assets/styles/_variables.scss";
+@use "element-plus/dist/index.css";
+@use "element-plus/theme-chalk/dark/css-vars.css";
+@use "./assets/styles/fireworks.scss";
+@use "./assets/styles/_variables.scss";
 
 * {
   // stop double tap zoom on safari. often double tap keys in game.
@@ -145,8 +144,8 @@ store.startGame({ allAnswers });
 
 // https://element-plus.org/en-US/guide/theming.html#by-css-variable
 :root {
-  --el-color-success: $bl-yellow;
-  --el-primary-color: $bl-yellow;
+  --el-color-success: variables.$bl-yellow;
+  --el-primary-color: variables.$bl-yellow;
 }
 
 html {
@@ -165,6 +164,7 @@ div {
 }
 
 .darkmode-switch {
+  --el-switch-on-color: variables.$bl-yellow;
   margin-top: 5px;
 }
 
@@ -199,13 +199,13 @@ h2 span {
   // }
 }
 .is-focused {
-  border-color: $bl-yellow !important;
+  border-color: variables.$bl-yellow !important;
 }
 .is-selected {
-  color: $bl-yellow !important;
+  color: variables.$bl-yellow !important;
   &::after {
-    color: $bl-yellow;
-    background-color: $bl-yellow !important;
+    color: variables.$bl-yellow;
+    background-color: variables.$bl-yellow !important;
   }
 }
 .el-dialog {
@@ -217,7 +217,7 @@ h2 span {
 .el-message--success {
   --el-message-bg-color: unset;
   --el-message-text-color: unset;
-  background-color: $bl-yellow !important;
+  background-color: variables.$bl-yellow !important;
   color: black !important;
 }
 
@@ -247,16 +247,16 @@ h2 span {
 
 .toast-message {
   max-width: 80%;
-  margin: 0, 1em;
+  margin: 0 1em;
   margin-top: 25vh;
 }
 
 html.dark {
   header strong {
-    color: $bl-yellow;
+    color: variables.$bl-yellow;
   }
   .pangram {
-    color: $bl-yellow;
+    color: variables.$bl-yellow;
   }
 }
 

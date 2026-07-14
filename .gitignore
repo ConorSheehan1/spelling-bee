@@ -25,3 +25,5 @@ dist-ssr
 
 # notes on hosting
 hosting
+
+pnpm-workspace.yaml

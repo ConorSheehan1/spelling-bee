@@ -26,10 +26,10 @@ const gridData = computed(() =>
 </template>
 
 <style scoped lang="scss">
-@import "../assets/styles/_variables";
+@use "../assets/styles/_variables";
 
 .middle-letter {
   font-weight: bold;
-  color: $bl-yellow;
+  color: variables.$bl-yellow;
 }
 </style>
