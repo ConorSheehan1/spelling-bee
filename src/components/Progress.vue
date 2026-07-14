@@ -33,7 +33,7 @@ const showRanking = ref(false);
 </template>
 
 <style scoped lang="scss">
-@import "../assets/styles/_variables";
+@use "../assets/styles/_variables";
 
 .row {
   margin: 20px;
@@ -44,7 +44,7 @@ const showRanking = ref(false);
 }
 
 html.dark .row strong {
-  color: $bl-grey;
+  color: variables.$bl-grey;
 }
 
 @media only screen and (max-width: 700px) {
