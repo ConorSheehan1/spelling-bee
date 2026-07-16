@@ -1,5 +1,5 @@
 // This script takes the contents of AllWords.txt
-// 1. Filters out any invalid words (len < 4, unique letters > 7) and writes them to answers.txt
+// 1. Filters out any invalid words (len < 4, unique letters > 7) and writes valid ones to answers.txt
 // 2. Finds pangrams and writes them to pangrams.txt
 // 3. Creates unique puzzle starting points and writes them to various allAnswers$N.json
 // 4. It will also check if today's and yesterday's puzzles have changed. If they have, it provides the option to quit the script.
@@ -12,7 +12,8 @@ import { generateAnswerObjs, shuffle } from "../src/utils";
 import currentAnswers from "./allAnswers.json";
 
 // config
-const minNumAnswers = 20;
+const minNumAnswers = 16;
+const maxNumAnswers = 80;
 const writeSupplementaryFiles = true;
 // 10 years worth of puzzles per file. avoid slow loading page and need for git-lfs with all puzzles in one file.
 // need to update to use allAnswers2 10 years from now. see you in the future o_0
@@ -55,13 +56,25 @@ let allAnswers = [];
 
 const createPuzzleBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 createPuzzleBar.start(numUniqueLetterCombinations * 7, 0);
-let numProcessed = 0;
+
+let numProcessed = 0, numIncluded = 0, numWithS = 0;
 
 for (let offset = 0; offset < 7; offset++) {
   for (let i = 0; i < numUniqueLetterCombinations; i++) {
     numProcessed += 1;
     createPuzzleBar.update(numProcessed);
     const availableLetters = uniqueLetterCombinationsShuffled[i] as string;
+
+    if (availableLetters.includes('e') && availableLetters.includes('r')) continue;
+
+    // Significantly reduce occurrence of puzzles containing S
+    if (availableLetters.includes('s')) {
+      const randNum = Math.floor(Math.random() * 100);
+      if (randNum < 98) {
+        continue;
+      } else numWithS += 1;
+    }
+
     // for each unique letter combination, choose middle letter in sequence
     // e.g. [0,1,2,3,4,5,6,0,1,2,3...], [1,2,3,4,5,6,0,1,2,3...]
     const middleLetter = availableLetters[(i + offset) % 7];
@@ -69,15 +82,16 @@ for (let offset = 0; offset < 7; offset++) {
       if (!word.includes(middleLetter)) return false;
       return word.split("").every((char: string) => availableLetters.includes(char));
     });
-    if (answers.length >= minNumAnswers) {
-      allAnswers.push({ answers, middleLetter, availableLetters });
-    } // else {
-    //   console.log({ availableLetters, middleLetter, len: answers.length })
-    // }
-    if (numProcessed % numPuzzlesPerFile === 0) {
-      let fileNum = numProcessed / numPuzzlesPerFile;
 
-      // validation today and yesterdays puzzle hasn't changed
+    if (answers.length >= minNumAnswers && answers.length <= maxNumAnswers) {
+      numIncluded += 1;
+      allAnswers.push({ answers, middleLetter, availableLetters });
+    }
+
+    if (numIncluded > 0 && numIncluded % numPuzzlesPerFile === 0) {
+      let fileNum = numIncluded / numPuzzlesPerFile;
+
+      // validation today and yesterday's puzzle hasn't changed
       const fileName = `./data/allAnswers${fileNum === 1 ? '' : fileNum}.json`;
       if (fileName.endsWith(answerFile)) {
         console.log(`\nChecking file currently in use by the game: ${fileName}`);
@@ -105,7 +119,6 @@ for (let offset = 0; offset < 7; offset++) {
 }
 
 createPuzzleBar.stop();
-console.log(`Processed ${numProcessed} puzzles, and ${Math.floor(numProcessed / numPuzzlesPerFile)} files.`)
-console.log(`${Math.floor(numProcessed / 365)} years of puzzles.`)
-// 52493 puzzle combinations
-// 52493 / 365 = 143 years worth of games
+console.log(`Processed ${numProcessed} puzzles, included ${numIncluded} puzzles.`);
+console.log(`${Math.floor(numIncluded / 365)} years of puzzles.`)
+console.log(`${numWithS} puzzles contain the letter S.`)
