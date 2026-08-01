@@ -70,7 +70,7 @@ for (let offset = 0; offset < 7; offset++) {
     // Significantly reduce occurrence of puzzles containing S
     if (availableLetters.includes('s')) {
       const randNum = Math.floor(Math.random() * 100);
-      if (randNum < 98) {
+      if (randNum < 90) {
         continue;
       } else numWithS += 1;
     }

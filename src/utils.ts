@@ -77,7 +77,7 @@ const incrementDups = (arr: Array<number>): Array<number> => {
 };
 
 // year game started, not released until mid-year so no issue using as epoch
-const epoch = new Date();
+const epoch = new Date('2026-06-01');
 
 const generateAnswerObjs = ({
   allAnswers,
